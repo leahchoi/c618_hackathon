@@ -59,3 +59,39 @@ function movePiece(){
 	}
 }
 
+var blackCounter = 0;
+var redCounter = 0;
+function removePiece(){
+	if(".blackChecker"){
+		if(destCol-initialCol > 0 ) {
+			$(`.play-checker-tile[row=${destRow-1}][col=${destCol+1}]`).removeClass(".red-checker");
+			checkerBoardArray[destRow-1][destCol+1] = ' ';
+		}
+		else if (destCol-initialCol < 0 ) {
+			$(`.play-checker-tile[row=${destRow-1}][col=${destCol-1}]`).removeClass(".red-checker");
+			checkerBoardArray[destRow-1][destCol-1] = ' ';
+		}
+		blackCounter++;
+	}
+	else if(".redChecker"){
+		if(destCol-initialCol > 0 ) {
+			$(`.play-checker-tile[row=${destRow-1}][col=${destCol+1}]`).removeClass(".black-checker");
+			checkerBoardArray[destRow-1][destCol+1] = ' ';
+		}
+		else if (destCol-initialCol < 0 ) {
+			$(`.play-checker-tile[row=${destRow-1}][col=${destCol-1}]`).removeClass(".black-checker");
+			checkerBoardArray[destRow-1][destCol-1] = ' ';
+		}
+		redCounter++;
+	}
+}
+
+function handleCheckerMove(){
+	if(Math.abs(destRow - initialRow) === 2){
+		movePiece();
+		removePiece();
+	}
+	else if(Math.abs(destRow - initialRow) === 1){
+		movePiece();
+	}
+}
