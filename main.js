@@ -1,5 +1,6 @@
 $(document).ready(runThisOnLoad);
-
+var blackCounter = 0;
+var redCounter = 0;
 function runThisOnLoad(){
 	makeCheckersBoard();
 	clickHandler();
@@ -58,6 +59,7 @@ function makeCheckersBoard(){
 function clickHandler(){
 	$('.black-checker').click(highlightBlack);
 	$('.red-checker').click(highlightRed);
+  $(".gameboard").on("click", ".highlight", handleCheckerMove);
 }
 
 function highlightBlack(){
@@ -118,4 +120,52 @@ function highlightRed(){
 		$(`.play-checker-tile[row=${twoMovesRowRight}][col=${twoMovesColRight}]`).addClass('highlight');
 		clickHandler();
 	} else{ }
+}
+
+//This function will just move a checker from it's last position to it's new position where a click was selected
+function movePiece(){
+	//Show piece on destination
+	//Hide piece on initial
+	if(checkerBoardArray[initialRow][initialCol] === 'r'){
+        $(`.play-checker-tile[row=${destRow}][col=${destCol}]`).addClass('.red-checker');
+        $(`.play-checker-tile[row=${initialRow}][col=${initialCol}]`).removeClass('.red-checker');
+	} else if (checkerBoardArray[initialRow][initialCol] === 'b'){
+		$(`.play-checker-tile[row=${destRow}][col=${destCol}]`).addClass('.black-checker');
+        $(`.play-checker-tile[row=${initialRow}][col=${initialCol}]`).removeClass('.black-checker');
+	}
+}
+
+function removePiece(){
+	if(".blackChecker"){
+		if(destCol-initialCol > 0 ) {
+			$(`.play-checker-tile[row=${destRow-1}][col=${destCol+1}]`).removeClass(".red-checker");
+			checkerBoardArray[destRow-1][destCol+1] = ' ';
+		}
+		else if (destCol-initialCol < 0 ) {
+			$(`.play-checker-tile[row=${destRow-1}][col=${destCol-1}]`).removeClass(".red-checker");
+			checkerBoardArray[destRow-1][destCol-1] = ' ';
+		}
+		blackCounter++;
+	}
+	else if(".redChecker"){
+		if(destCol-initialCol > 0 ) {
+			$(`.play-checker-tile[row=${destRow-1}][col=${destCol+1}]`).removeClass(".black-checker");
+			checkerBoardArray[destRow-1][destCol+1] = ' ';
+		}
+		else if (destCol-initialCol < 0 ) {
+			$(`.play-checker-tile[row=${destRow-1}][col=${destCol-1}]`).removeClass(".black-checker");
+			checkerBoardArray[destRow-1][destCol-1] = ' ';
+		}
+		redCounter++;
+	}
+}
+
+function handleCheckerMove(){
+	if(Math.abs(destRow - initialRow) === 2){
+		movePiece();
+		removePiece();
+	}
+	else if(Math.abs(destRow - initialRow) === 1){
+		movePiece();
+	}
 }
