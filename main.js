@@ -1,7 +1,9 @@
 $(document).ready(runThisOnLoad);
-
+var blackCounter = 0;
+var redCounter = 0;
 function runThisOnLoad(){
 	makeCheckersBoard();
+	clickHandler();
 }
 
 var checkerBoardArray = [
@@ -47,20 +49,23 @@ function makeCheckersBoard(){
 		}
 	}
 }
-
 //This function will just move a checker from it's last position to it's new position where a click was selected
 function movePiece(){
 	//Show piece on destination
 	//Hide piece on initial
-
-	if(){
+	if(checkerBoardArray[initialRow][initialCol] === 'r'){
         $(`.play-checker-tile[row=${destRow}][col=${destCol}]`).addClass('.red-checker');
         $(`.play-checker-tile[row=${initialRow}][col=${initialCol}]`).removeClass('.red-checker');
+	} else if (checkerBoardArray[initialRow][initialCol] === 'b'){
+		$(`.play-checker-tile[row=${destRow}][col=${destCol}]`).addClass('.black-checker');
+        $(`.play-checker-tile[row=${initialRow}][col=${initialCol}]`).removeClass('.black-checker');
 	}
 }
 
-var blackCounter = 0;
-var redCounter = 0;
+function clickHandler(){
+	$(".gameboard").on("click", ".highlight", handleCheckerMove);
+}
+
 function removePiece(){
 	if(".blackChecker"){
 		if(destCol-initialCol > 0 ) {
