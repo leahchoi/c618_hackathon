@@ -47,3 +47,15 @@ function makeCheckersBoard(){
 		}
 	}
 }
+
+//This function will just move a checker from it's last position to it's new position where a click was selected
+function movePiece(){
+	//Show piece on destination
+	//Hide piece on initial
+
+	if(){
+        $(`.play-checker-tile[row=${destRow}][col=${destCol}]`).addClass('.red-checker');
+        $(`.play-checker-tile[row=${initialRow}][col=${initialCol}]`).removeClass('.red-checker');
+	}
+}
+
