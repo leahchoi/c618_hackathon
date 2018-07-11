@@ -2,14 +2,21 @@ $(document).ready(runThisOnLoad);
 
 function runThisOnLoad(){
 	makeCheckersBoard();
+	clickHandler();
 }
+
+var initialRow = null;
+var initialCol = null;
+var destRow = null;
+var destCol = null;
+
 
 var checkerBoardArray = [
 				[' ', 'r', ' ', 'r', ' ', 'r', ' ', 'r'], 
 				['r', ' ', 'r', ' ', 'r', ' ', 'r', ' '], 
 				[' ', 'r', ' ', 'r', ' ', 'r', ' ', 'r'], 
 				[' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '], 
-				[' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '], 
+				[' ', ' ', ' ', 'r', ' ', ' ', ' ', ' '], 
 				['b', ' ', 'b', ' ', 'b', ' ', 'b', ' '], 
 				[' ', 'b', ' ', 'b', ' ', 'b', ' ', 'b'],
 				['b', ' ', 'b', ' ', 'b', ' ', 'b', ' ']
@@ -46,4 +53,69 @@ function makeCheckersBoard(){
 
 		}
 	}
+}
+
+function clickHandler(){
+	$('.black-checker').click(highlightBlack);
+	$('.red-checker').click(highlightRed);
+}
+
+function highlightBlack(){
+	$('.play-checker-tile').removeClass('highlight');
+		initialRow = parseInt($(this).attr('row'));
+		initialCol = parseInt($(this).attr('col'));
+	var oneMoveRowLeft = initialRow-1;
+	var oneMoveColLeft = initialCol-1;
+	var oneMoveRowRight = initialRow-1;
+	var oneMoveColRight = initialCol+1;
+	var twoMovesRowLeft = initialRow-2;
+	var twoMovesColLeft = initialCol-2;
+	var twoMovesRowRight = initialRow-2;
+	var twoMovesColRight = initialCol+2;
+
+	if(checkerBoardArray[oneMoveRowLeft][oneMoveColLeft] === ' '){ // if left space is open
+		$(`.play-checker-tile[row=${oneMoveRowLeft}][col=${oneMoveColLeft}]`).addClass('highlight');
+		clickHandler();
+	} else if(checkerBoardArray[oneMoveRowLeft][oneMoveColLeft] === 'r' && checkerBoardArray[twoMovesRowLeft][twoMovesColLeft] === ' '){ // if left is enemy and behind is open
+		$(`.play-checker-tile[row=${twoMovesRowLeft}][col=${twoMovesColLeft}]`).addClass('highlight');
+		clickHandler();
+	} else{ }
+	
+	if(checkerBoardArray[oneMoveRowRight][oneMoveColRight] === ' '){ // if right space is open
+		$(`.play-checker-tile[row=${oneMoveRowRight}][col=${oneMoveColRight}]`).addClass('highlight');
+		clickHandler();
+	} else if(checkerBoardArray[oneMoveRowRight][oneMoveColRight] === 'r' && checkerBoardArray[twoMovesRowRight][twoMovesColRight] === ' '){ // if right is enemy and behind is open
+		$(`.play-checker-tile[row=${twoMovesRowRight}][col=${twoMovesColRight}]`).addClass('highlight');
+		clickHandler();
+	} else{ }
+
+}
+function highlightRed(){
+	$('.play-checker-tile').removeClass('highlight');
+		initialRow = parseInt($(this).attr('row'));
+		initialCol = parseInt($(this).attr('col'));
+	var oneMoveRowLeft = initialRow+1;
+	var oneMoveColLeft = initialCol-1;
+	var oneMoveRowRight = initialRow+1;
+	var oneMoveColRight = initialCol+1;
+	var twoMovesRowLeft = initialRow+2;
+	var twoMovesColLeft = initialCol-2;
+	var twoMovesRowRight = initialRow+2;
+	var twoMovesColRight = initialCol+2;
+
+	if(checkerBoardArray[(oneMoveRowLeft)][(oneMoveColLeft)] === ' '){
+		$(`.play-checker-tile[row=${oneMoveRowLeft}][col=${oneMoveColLeft}]`).addClass('highlight');
+		clickHandler();
+	} else if(checkerBoardArray[oneMoveRowLeft][oneMoveColLeft] === 'b' && checkerBoardArray[twoMovesRowLeft][twoMovesColLeft] === ' '){
+		$(`.play-checker-tile[row=${twoMovesRowLeft}][col=${twoMovesColLeft}]`).addClass('highlight');
+		clickHandler();
+	} else{ }
+	
+	if(checkerBoardArray[(oneMoveRowRight)][(oneMoveColRight)] === ' '){
+		$(`.play-checker-tile[row=${oneMoveRowRight}][col=${oneMoveColRight}]`).addClass('highlight');
+		clickHandler();
+	} else if(checkerBoardArray[oneMoveRowRight][oneMoveColRight] === 'b' && checkerBoardArray[twoMovesRowRight][twoMovesColRight] === ' '){
+		$(`.play-checker-tile[row=${twoMovesRowRight}][col=${twoMovesColRight}]`).addClass('highlight');
+		clickHandler();
+	} else{ }
 }
