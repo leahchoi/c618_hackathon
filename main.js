@@ -11,6 +11,9 @@ var initialCol = null;
 var destRow = null;
 var destCol = null;
 
+var blackTurn = true;
+var redTurn = false;
+
 
 var checkerBoardArray = [
 				[' ', 'r', ' ', 'r', ' ', 'r', ' ', 'r'], 
@@ -63,63 +66,73 @@ function clickHandler(){
 }
 
 function highlightBlack(){
-	$('.play-checker-tile').removeClass('highlight');
-	initialRow = parseInt($(this).attr('row'));
-	initialCol = parseInt($(this).attr('col'));
-	var oneMoveRowLeft = initialRow-1;
-	var oneMoveColLeft = initialCol-1;
-	var oneMoveRowRight = initialRow-1;
-	var oneMoveColRight = initialCol+1;
-	var twoMovesRowLeft = initialRow-2;
-	var twoMovesColLeft = initialCol-2;
-	var twoMovesRowRight = initialRow-2;
-	var twoMovesColRight = initialCol+2;
 
-	if(checkerBoardArray[oneMoveRowLeft][oneMoveColLeft] === ' '){ // if left space is open
-		$(`.play-checker-tile[row=${oneMoveRowLeft}][col=${oneMoveColLeft}]`).addClass('highlight');
-		clickHandler();
-	} else if(checkerBoardArray[oneMoveRowLeft][oneMoveColLeft] === 'r' && checkerBoardArray[twoMovesRowLeft][twoMovesColLeft] === ' '){ // if left is enemy and behind is open
-		$(`.play-checker-tile[row=${twoMovesRowLeft}][col=${twoMovesColLeft}]`).addClass('highlight');
-		clickHandler();
-	} else{ }
-	
-	if(checkerBoardArray[oneMoveRowRight][oneMoveColRight] === ' '){ // if right space is open
-		$(`.play-checker-tile[row=${oneMoveRowRight}][col=${oneMoveColRight}]`).addClass('highlight');
-		clickHandler();
-	} else if(checkerBoardArray[oneMoveRowRight][oneMoveColRight] === 'r' && checkerBoardArray[twoMovesRowRight][twoMovesColRight] === ' '){ // if right is enemy and behind is open
-		$(`.play-checker-tile[row=${twoMovesRowRight}][col=${twoMovesColRight}]`).addClass('highlight');
-		clickHandler();
-	} else{ }
+	if (blackTurn){
+			$('.play-checker-tile').removeClass('highlight');
+			initialRow = parseInt($(this).attr('row'));
+			initialCol = parseInt($(this).attr('col'));
+		var oneMoveRowLeft = initialRow-1;
+		var oneMoveColLeft = initialCol-1;
+		var oneMoveRowRight = initialRow-1;
+		var oneMoveColRight = initialCol+1;
+		var twoMovesRowLeft = initialRow-2;
+		var twoMovesColLeft = initialCol-2;
+		var twoMovesRowRight = initialRow-2;
+		var twoMovesColRight = initialCol+2;
 
+		if(checkerBoardArray[oneMoveRowLeft][oneMoveColLeft] === ' '){ // if left space is open
+			$(`.play-checker-tile[row=${oneMoveRowLeft}][col=${oneMoveColLeft}]`).addClass('highlight');
+		} else if(checkerBoardArray[oneMoveRowLeft][oneMoveColLeft] === 'r' && checkerBoardArray[twoMovesRowLeft][twoMovesColLeft] === ' '){ // if left is enemy and behind is open
+			$(`.play-checker-tile[row=${twoMovesRowLeft}][col=${twoMovesColLeft}]`).addClass('highlight');
+		} else{ }
+		if(checkerBoardArray[oneMoveRowRight][oneMoveColRight] === ' '){ // if right space is open
+			$(`.play-checker-tile[row=${oneMoveRowRight}][col=${oneMoveColRight}]`).addClass('highlight');
+		} else if(checkerBoardArray[oneMoveRowRight][oneMoveColRight] === 'r' && checkerBoardArray[twoMovesRowRight][twoMovesColRight] === ' '){ // if right is enemy and behind is open
+			$(`.play-checker-tile[row=${twoMovesRowRight}][col=${twoMovesColRight}]`).addClass('highlight');
+		} else{ }
+		clickHandler();
+	} else{
+		return;
+	}
 }
 function highlightRed(){
-	$('.play-checker-tile').removeClass('highlight');
-		initialRow = parseInt($(this).attr('row'));
-		initialCol = parseInt($(this).attr('col'));
-	var oneMoveRowLeft = initialRow+1;
-	var oneMoveColLeft = initialCol-1;
-	var oneMoveRowRight = initialRow+1;
-	var oneMoveColRight = initialCol+1;
-	var twoMovesRowLeft = initialRow+2;
-	var twoMovesColLeft = initialCol-2;
-	var twoMovesRowRight = initialRow+2;
-	var twoMovesColRight = initialCol+2;
+	if (redTurn){
+			$('.play-checker-tile').removeClass('highlight');
+			initialRow = parseInt($(this).attr('row'));
+			initialCol = parseInt($(this).attr('col'));
+		var oneMoveRowLeft = initialRow+1;
+		var oneMoveColLeft = initialCol-1;
+		var oneMoveRowRight = initialRow+1;
+		var oneMoveColRight = initialCol+1;
+		var twoMovesRowLeft = initialRow+2;
+		var twoMovesColLeft = initialCol-2;
+		var twoMovesRowRight = initialRow+2;
+		var twoMovesColRight = initialCol+2;
 
-	if(checkerBoardArray[(oneMoveRowLeft)][(oneMoveColLeft)] === ' '){
-		$(`.play-checker-tile[row=${oneMoveRowLeft}][col=${oneMoveColLeft}]`).addClass('highlight');
+		if(checkerBoardArray[(oneMoveRowLeft)][(oneMoveColLeft)] === ' '){
+			$(`.play-checker-tile[row=${oneMoveRowLeft}][col=${oneMoveColLeft}]`).addClass('highlight');
+		} else if(checkerBoardArray[oneMoveRowLeft][oneMoveColLeft] === 'b' && checkerBoardArray[twoMovesRowLeft][twoMovesColLeft] === ' '){
+			$(`.play-checker-tile[row=${twoMovesRowLeft}][col=${twoMovesColLeft}]`).addClass('highlight');
+		} else{ }
+		if(checkerBoardArray[(oneMoveRowRight)][(oneMoveColRight)] === ' '){
+			$(`.play-checker-tile[row=${oneMoveRowRight}][col=${oneMoveColRight}]`).addClass('highlight');
+		} else if(checkerBoardArray[oneMoveRowRight][oneMoveColRight] === 'b' && checkerBoardArray[twoMovesRowRight][twoMovesColRight] === ' '){
+			$(`.play-checker-tile[row=${twoMovesRowRight}][col=${twoMovesColRight}]`).addClass('highlight');
+		} else{ }
 		clickHandler();
-	} else if(checkerBoardArray[oneMoveRowLeft][oneMoveColLeft] === 'b' && checkerBoardArray[twoMovesRowLeft][twoMovesColLeft] === ' '){
-		$(`.play-checker-tile[row=${twoMovesRowLeft}][col=${twoMovesColLeft}]`).addClass('highlight');
-		clickHandler();
-	} else{ }
-	
-	if(checkerBoardArray[(oneMoveRowRight)][(oneMoveColRight)] === ' '){
-		$(`.play-checker-tile[row=${oneMoveRowRight}][col=${oneMoveColRight}]`).addClass('highlight');
-		clickHandler();
-	} else if(checkerBoardArray[oneMoveRowRight][oneMoveColRight] === 'b' && checkerBoardArray[twoMovesRowRight][twoMovesColRight] === ' '){
-		$(`.play-checker-tile[row=${twoMovesRowRight}][col=${twoMovesColRight}]`).addClass('highlight');
-		clickHandler();
-	} else{ }
+	} else {
+		return;
+	}	
+}
+
+function switchPlayer(){
+	if(blackturn){
+		blackturn = false;
+		redturn = true;
+	} else if(redturn){
+		redturn = false;
+		blackturn = true;
+	}
 }
 
 //This function will just move a checker from it's last position to it's new position where a click was selected
@@ -170,8 +183,10 @@ function handleCheckerMove(){
 	if(Math.abs(destRow - initialRow) === 2){
 		movePiece();
 		removePiece();
+		switchPlayer();
 	}
 	else if(Math.abs(destRow - initialRow) === 1){
 		movePiece();
+		switchPlayer();
 	}
 }
