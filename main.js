@@ -59,13 +59,13 @@ function makeCheckersBoard(){
 function clickHandler(){
 	$('.black-checker').click(highlightBlack);
 	$('.red-checker').click(highlightRed);
-  $(".gameboard").on("click", ".highlight", handleCheckerMove);
+  	$(".gameboard").on("click", ".highlight", handleCheckerMove);
 }
 
 function highlightBlack(){
 	$('.play-checker-tile').removeClass('highlight');
-		initialRow = parseInt($(this).attr('row'));
-		initialCol = parseInt($(this).attr('col'));
+	initialRow = parseInt($(this).attr('row'));
+	initialCol = parseInt($(this).attr('col'));
 	var oneMoveRowLeft = initialRow-1;
 	var oneMoveColLeft = initialCol-1;
 	var oneMoveRowRight = initialRow-1;
@@ -127,40 +127,46 @@ function movePiece(){
 	//Show piece on destination
 	//Hide piece on initial
 	if(checkerBoardArray[initialRow][initialCol] === 'r'){
-        $(`.play-checker-tile[row=${destRow}][col=${destCol}]`).addClass('.red-checker');
-        $(`.play-checker-tile[row=${initialRow}][col=${initialCol}]`).removeClass('.red-checker');
+        $(`.play-checker-tile[row=${destRow}][col=${destCol}]`).addClass('red-checker');
+		$(`.play-checker-tile[row=${initialRow}][col=${initialCol}]`).removeClass('red-checker');
+		checkerBoardArray[destRow][destCol] = 'r';
+		checkerBoardArray[initialRow][initialCol] = ' ';
 	} else if (checkerBoardArray[initialRow][initialCol] === 'b'){
-		$(`.play-checker-tile[row=${destRow}][col=${destCol}]`).addClass('.black-checker');
-        $(`.play-checker-tile[row=${initialRow}][col=${initialCol}]`).removeClass('.black-checker');
+		$(`.play-checker-tile[row=${destRow}][col=${destCol}]`).addClass('black-checker');
+		$(`.play-checker-tile[row=${initialRow}][col=${initialCol}]`).removeClass('black-checker');
+		checkerBoardArray[destRow][destCol] = 'b';
+		checkerBoardArray[initialRow][initialCol] = ' ';
 	}
 }
 
 function removePiece(){
-	if(".blackChecker"){
+	if(checkerBoardArray[destRow][destCol] === 'b'){
 		if(destCol-initialCol > 0 ) {
-			$(`.play-checker-tile[row=${destRow-1}][col=${destCol+1}]`).removeClass(".red-checker");
-			checkerBoardArray[destRow-1][destCol+1] = ' ';
+			$(`.play-checker-tile[row=${initialRow-1}][col=${initialCol+1}]`).removeClass("red-checker");
+			checkerBoardArray[(initialRow-1)][(initialCol+1)] = ' ';
 		}
 		else if (destCol-initialCol < 0 ) {
-			$(`.play-checker-tile[row=${destRow-1}][col=${destCol-1}]`).removeClass(".red-checker");
-			checkerBoardArray[destRow-1][destCol-1] = ' ';
+			$(`.play-checker-tile[row=${initialRow-1}][col=${initialCol-1}]`).removeClass("red-checker");
+			checkerBoardArray[(initialRow-1)][(initialCol-1)] = ' ';
 		}
 		blackCounter++;
 	}
-	else if(".redChecker"){
+	else if(checkerBoardArray[destRow][destCol] === 'r'){
 		if(destCol-initialCol > 0 ) {
-			$(`.play-checker-tile[row=${destRow-1}][col=${destCol+1}]`).removeClass(".black-checker");
-			checkerBoardArray[destRow-1][destCol+1] = ' ';
+			$(`.play-checker-tile[row=${destRow-1}][col=${destCol-1}]`).removeClass("black-checker");
+			checkerBoardArray[(destRow-1)][(destCol-1)] = ' ';
 		}
 		else if (destCol-initialCol < 0 ) {
-			$(`.play-checker-tile[row=${destRow-1}][col=${destCol-1}]`).removeClass(".black-checker");
-			checkerBoardArray[destRow-1][destCol-1] = ' ';
+			$(`.play-checker-tile[row=${destRow-1}][col=${destCol+1}]`).removeClass("black-checker");
+			checkerBoardArray[(destRow-1)][(destCol+1)] = ' ';
 		}
 		redCounter++;
 	}
 }
 
 function handleCheckerMove(){
+	destRow = parseInt($(this).attr('row'));
+	destCol = parseInt($(this).attr('col'));
 	if(Math.abs(destRow - initialRow) === 2){
 		movePiece();
 		removePiece();
