@@ -1,6 +1,7 @@
 $(document).ready(runThisOnLoad);
 var blackCounter = 0;
 var redCounter = 0;
+
 function runThisOnLoad(){
 	makeCheckersBoard();
 	clickHandler();
@@ -20,7 +21,7 @@ var checkerBoardArray = [
 				['r', ' ', 'r', ' ', 'r', ' ', 'r', ' '], 
 				[' ', 'r', ' ', 'r', ' ', 'r', ' ', 'r'], 
 				[' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '], 
-				[' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '], 
+				[' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
 				['b', ' ', 'b', ' ', 'b', ' ', 'b', ' '], 
 				[' ', 'b', ' ', 'b', ' ', 'b', ' ', 'b'],
 				['b', ' ', 'b', ' ', 'b', ' ', 'b', ' ']
@@ -65,6 +66,7 @@ function clickHandler(){
   	$(".gameboard").on("click", ".highlight", handleCheckerMove);
   	$(".gameboard").on("click", ".redking", highlightRedKing);
   	$(".gameboard").on("click", ".blackking", highlightBlackKing);
+    $(".reset-button").on("click", resetGame);
 }
 
 function highlightBlack(){
@@ -433,3 +435,37 @@ function handleCheckerMove(){
 		switchPlayer();
 	}
 }
+
+//Needs to play with this before it works properly
+function win() {
+    var modal = $('<div>').addClass("winModal");
+    var winStr = $('<div>').addClass('winTextStyle').text('You won! You did it!');
+    resetBtn.click(function () {
+        $(modal).remove();
+        resetGame();
+    });
+    modal.append(resetBtn, winStr);
+    $('.container').append(modal);
+}
+
+function resetGame(){
+	//Write if statement...if win modal exists then remove the modal
+    initialRow = null;
+    initialCol = null;
+    destRow = null;
+    destCol = null;
+
+    checkerBoardArray = [
+        [' ', 'r', ' ', 'r', ' ', 'r', ' ', 'r'],
+        ['r', ' ', 'r', ' ', 'r', ' ', 'r', ' '],
+        [' ', 'r', ' ', 'r', ' ', 'r', ' ', 'r'],
+        [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+        [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+        ['b', ' ', 'b', ' ', 'b', ' ', 'b', ' '],
+        [' ', 'b', ' ', 'b', ' ', 'b', ' ', 'b'],
+        ['b', ' ', 'b', ' ', 'b', ' ', 'b', ' ']
+    ]
+
+}
+
+
