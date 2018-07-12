@@ -76,7 +76,7 @@
 .player-image-cont{
 	width: 100%;
 	height: 35%;
-	border: solid 1vh green;
+	/* border: solid 1vh green; */
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
@@ -88,7 +88,7 @@
 	background-size: 100%;
 	width: 80%;
 	height: 90%;
-	/*border: solid 2px green;*/
+	border: solid 5px red;
 	border-radius: 50%;
 }
 
@@ -96,6 +96,7 @@
 	background-image: url(images/cody.jpg);
 	background-repeat: no-repeat;
 	background-size: 100%;
+	border: solid 5px green;
 	width: 80%;
 	height: 90%;
 	/*border: solid 2px green;*/
@@ -120,6 +121,10 @@
 	margin-top: 4%;
 }
 
+#player1score, #player2score{
+	font-size: 4vh;
+	color: white;
+}
 .button-cont{
 	position: relative;
 	width: 100%;
@@ -209,7 +214,7 @@
 .winModal {
 	display: initial;
 	/*background-color: black;*/
-	background-image: url();
+	background-image: url(images/fireworks.jpg);
 	position: fixed;
 	background-repeat: no-repeat;
 	background-size: contain;
@@ -218,8 +223,8 @@
 	left: 0;
 	height: 100%;
 	width: 100%;
-  
-.redking{
+}
+/* .redking{
 	background-color: red;
 	border: 3px solid white;
 }
@@ -227,4 +232,4 @@
 .blackking{
 	background-color: gray;
 	border: 3px solid white;
-}
+} */
