@@ -320,13 +320,16 @@ function highlightBlackKing(){
 
 
 function switchPlayer(){
-	
 	if(blackTurn){
 		blackTurn = false;
 		redTurn = true;
+		$(".player2-image").css("border-color", "red");
+		$(".player1-image").css("border-color", "green");
 	} else if(redTurn){
 		redTurn = false;
 		blackTurn = true;
+		$(".player1-image").css("border-color", "red");
+		$(".player2-image").css("border-color", "green");
 	}
 }
 
@@ -411,39 +414,45 @@ function removeOpponentPiece(){
 				checkerBoardArray[(initialRow+1)][(initialCol-1)] = ' ';
 			}
 		}
-	}
-//if red king
-	if(checkerBoardArray[destRow][destCol] === 'rk'){
-//if checker moved right,
-		if(destCol-initialCol > 0 ) {
-//right up
-			if(destRow - initialRow < 0){
-				$(`.play-checker-tile[row=${initialRow-1}][col=${initialCol+1}]`).removeClass("black-checker");
-				checkerBoardArray[(initialRow-1)][(initialCol+1)] = ' ';
-//right down
-			} else if (destRow - initialRow > 0) {
-				$(`.play-checker-tile[row=${initialRow+1}][col=${initialCol+1}]`).removeClass("black-checker");
-				checkerBoardArray[(initialRow+1)][(initialCol+1)] = ' ';
-// if checker moved left
-			}
-		} else if(destCol-initialCol < 0 ) {
-//left up
-			if(destRow - initialRow < 0){
-				$(`.play-checker-tile[row=${initialRow-1}][col=${initialCol-1}]`).removeClass("black-checker");
-				checkerBoardArray[(initialRow-1)][(initialCol+1)] = ' ';
-//left down
-			} else if (destRow - initialRow > 0) {
-				$(`.play-checker-tile[row=${initialRow+1}][col=${initialCol-1}]`).removeClass("black-checker");
-				checkerBoardArray[(initialRow+1)][(initialCol-1)] = ' ';
-			}
+		if (color === 'black') {
+			blackCounter++
+		} else if (color === 'red') {
+			redCounter++
 		}
 	}
+// //if red king
+// 	if(checkerBoardArray[destRow][destCol] === 'rk'){
+// //if checker moved right,
+// 		if(destCol-initialCol > 0 ) {
+// //right up
+// 			if(destRow - initialRow < 0){
+// 				$(`.play-checker-tile[row=${initialRow-1}][col=${initialCol+1}]`).removeClass("black-checker");
+// 				checkerBoardArray[(initialRow-1)][(initialCol+1)] = ' ';
+// //right down
+// 			} else if (destRow - initialRow > 0) {
+// 				$(`.play-checker-tile[row=${initialRow+1}][col=${initialCol+1}]`).removeClass("black-checker");
+// 				checkerBoardArray[(initialRow+1)][(initialCol+1)] = ' ';
+// // if checker moved left
+// 			}
+// 		} else if(destCol-initialCol < 0 ) {
+// //left up
+// 			if(destRow - initialRow < 0){
+// 				$(`.play-checker-tile[row=${initialRow-1}][col=${initialCol-1}]`).removeClass("black-checker");
+// 				checkerBoardArray[(initialRow-1)][(initialCol+1)] = ' ';
+// //left down
+// 			} else if (destRow - initialRow > 0) {
+// 				$(`.play-checker-tile[row=${initialRow+1}][col=${initialCol-1}]`).removeClass("black-checker");
+// 				checkerBoardArray[(initialRow+1)][(initialCol-1)] = ' ';
+// 			}
+// 		}
+// 	}
 //if black checker
 	if(checkerBoardArray[destRow][destCol] === 'b'){
 //if moved up right
 		if(destCol-initialCol > 0 ) {
 			$(`.play-checker-tile[row=${initialRow-1}][col=${initialCol+1}]`).removeClass("red-checker");
 			checkerBoardArray[(initialRow-1)][(initialCol+1)] = ' ';
+			blackCounter++;
 		}
 //if moved up left
 		else if (destCol-initialCol < 0 ) {
@@ -458,6 +467,7 @@ function removeOpponentPiece(){
 		if(destCol-initialCol > 0 ) {
 			$(`.play-checker-tile[row=${destRow-1}][col=${destCol-1}]`).removeClass("black-checker");
 			checkerBoardArray[(destRow-1)][(destCol-1)] = ' ';
+			redCounter++;
 		}
 //moved down left
 		else if (destCol-initialCol < 0 ) {
@@ -465,6 +475,11 @@ function removeOpponentPiece(){
 			checkerBoardArray[(destRow-1)][(destCol+1)] = ' ';
 		}
 		redCounter++;
+	}
+	$("#player1score").text(redCounter);
+	$("#player2score").text(blackCounter);
+	if(blackCounter === 12 || redCounter === 12){
+		win();
 	}
 }
 //This function calls appropriate functions depending on the checker's move
@@ -488,22 +503,24 @@ function handleCheckerMove(){
 //Needs to play with this before it works properly
 function win() {
     var modal = $('<div>').addClass("winModal");
-    var winStr = $('<div>').addClass('winTextStyle').text('You won! You did it!');
-    resetBtn.click(function () {
-        $(modal).remove();
-        resetGame();
-    });
-    modal.append(resetBtn, winStr);
-    $('.container').append(modal);
+    // var winStr = $('<div>').addClass('winTextStyle').text('You won! You did it!');
+    // resetBtn.click(function () {
+    //     $(modal).remove();
+    //     resetGame();
+    // });
+    modal.append(".reset-button");
+    $('body').append(modal);
 }
 
 function resetGame(){
+	console.log('clicked on reset gamebutton')
 	//Write if statement...if win modal exists then remove the modal
+	$(modal).remove();
+	$(".gameboard").empty();
     initialRow = null;
     initialCol = null;
     destRow = null;
     destCol = null;
-
     checkerBoardArray = [
         [' ', 'r', ' ', 'r', ' ', 'r', ' ', 'r'],
         ['r', ' ', 'r', ' ', 'r', ' ', 'r', ' '],
@@ -513,8 +530,8 @@ function resetGame(){
         ['b', ' ', 'b', ' ', 'b', ' ', 'b', ' '],
         [' ', 'b', ' ', 'b', ' ', 'b', ' ', 'b'],
         ['b', ' ', 'b', ' ', 'b', ' ', 'b', ' ']
-    ]
-
+    ];
+	makeCheckersBoard();
 }
 
 
