@@ -87,6 +87,8 @@ function highlightBlack(){
 		} else{ }
 		if(checkerBoardArray[oneMoveRowRight][oneMoveColRight] === ' '){ // if right space is open
 			$(`.play-checker-tile[row=${oneMoveRowRight}][col=${oneMoveColRight}]`).addClass('highlight');
+		} else if(checkerBoardArray[twoMovesRowRight][twoMovesColRight] === undefined){
+			return;
 		} else if(checkerBoardArray[oneMoveRowRight][oneMoveColRight] === 'r' && checkerBoardArray[twoMovesRowRight][twoMovesColRight] === ' '){ // if right is enemy and behind is open
 			$(`.play-checker-tile[row=${twoMovesRowRight}][col=${twoMovesColRight}]`).addClass('highlight');
 		} else{ }
@@ -115,9 +117,11 @@ function highlightRed(){
 		} else{ }
 		if(checkerBoardArray[(oneMoveRowRight)][(oneMoveColRight)] === ' '){
 			$(`.play-checker-tile[row=${oneMoveRowRight}][col=${oneMoveColRight}]`).addClass('highlight');
+		} else if(checkerBoardArray[twoMovesRowRight][twoMovesColRight] === undefined){
+			return;
 		} else if(checkerBoardArray[oneMoveRowRight][oneMoveColRight] === 'b' && checkerBoardArray[twoMovesRowRight][twoMovesColRight] === ' '){
 			$(`.play-checker-tile[row=${twoMovesRowRight}][col=${twoMovesColRight}]`).addClass('highlight');
-		} else{ }
+		} 
 	} else {
 		return;
 	}	
