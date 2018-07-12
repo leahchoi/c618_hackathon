@@ -60,8 +60,8 @@ function makeCheckersBoard(){
 }
 
 function clickHandler(){
-	$('.black-checker').click(highlightBlack);
-	$('.red-checker').click(highlightRed);
+	$(".gameboard").on('click', '.black-checker', highlightBlack);
+	$(".gameboard").on('click', '.red-checker', highlightRed);
   	$(".gameboard").on("click", ".highlight", handleCheckerMove);
 }
 
@@ -90,7 +90,6 @@ function highlightBlack(){
 		} else if(checkerBoardArray[oneMoveRowRight][oneMoveColRight] === 'r' && checkerBoardArray[twoMovesRowRight][twoMovesColRight] === ' '){ // if right is enemy and behind is open
 			$(`.play-checker-tile[row=${twoMovesRowRight}][col=${twoMovesColRight}]`).addClass('highlight');
 		} else{ }
-		clickHandler();
 	} else{
 		return;
 	}
@@ -119,19 +118,19 @@ function highlightRed(){
 		} else if(checkerBoardArray[oneMoveRowRight][oneMoveColRight] === 'b' && checkerBoardArray[twoMovesRowRight][twoMovesColRight] === ' '){
 			$(`.play-checker-tile[row=${twoMovesRowRight}][col=${twoMovesColRight}]`).addClass('highlight');
 		} else{ }
-		clickHandler();
 	} else {
 		return;
 	}	
 }
 
 function switchPlayer(){
-	if(blackturn){
-		blackturn = false;
-		redturn = true;
-	} else if(redturn){
-		redturn = false;
-		blackturn = true;
+	debugger;
+	if(blackTurn){
+		blackTurn = false;
+		redTurn = true;
+	} else if(redTurn){
+		redTurn = false;
+		blackTurn = true;
 	}
 }
 
