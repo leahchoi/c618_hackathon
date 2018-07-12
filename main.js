@@ -23,7 +23,7 @@ var checkerBoardArray = [
 				[' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '], 
 				['b', ' ', 'b', ' ', 'b', ' ', 'b', ' '], 
 				[' ', 'b', ' ', 'b', ' ', 'b', ' ', 'b'],
-				['b', ' ', 'b', ' ', 'b', ' ', 'b', ' ']
+				['b', ' ', 'rk', ' ', 'b', ' ', 'b', ' ']
 				];
 
 function makeCheckersBoard(){
@@ -138,20 +138,87 @@ function switchPlayer(){
 function movePiece(){
 	//Show piece on destination
 	//Hide piece on initial
+	if(checkerBoardArray[initialRow][initialCol] === 'rk') {
+		$(`.play-checker-tile[row=${destRow}][col=${destCol}]`).addClass('red-checker king');
+		$(`.play-checker-tile[row=${initialRow}][col=${initialCol}]`).removeClass('red-checker king');
+		checkerBoardArray[destRow][destCol] = 'rk';
+		checkerBoardArray[initialRow][initialCol] = ' ';
+	}
+	if(checkerBoardArray[initialRow][initialCol] === 'bk') {
+		$(`.play-checker-tile[row=${destRow}][col=${destCol}]`).addClass('black-checker king');
+		$(`.play-checker-tile[row=${initialRow}][col=${initialCol}]`).removeClass('black-checker king');
+		checkerBoardArray[destRow][destCol] = 'bk';
+		checkerBoardArray[initialRow][initialCol] = ' ';
+	}
+
+	//
 	if(checkerBoardArray[initialRow][initialCol] === 'r'){
         $(`.play-checker-tile[row=${destRow}][col=${destCol}]`).addClass('red-checker');
 		$(`.play-checker-tile[row=${initialRow}][col=${initialCol}]`).removeClass('red-checker');
 		checkerBoardArray[destRow][destCol] = 'r';
 		checkerBoardArray[initialRow][initialCol] = ' ';
+		if(destRow === 7){
+			$(`.play-checker-tile[row=${destRow}][col=${destCol}]`).addClass('king');
+			checkerBoardArray[destRow][destCol] = 'rk';
+		}
 	} else if (checkerBoardArray[initialRow][initialCol] === 'b'){
 		$(`.play-checker-tile[row=${destRow}][col=${destCol}]`).addClass('black-checker');
 		$(`.play-checker-tile[row=${initialRow}][col=${initialCol}]`).removeClass('black-checker');
 		checkerBoardArray[destRow][destCol] = 'b';
 		checkerBoardArray[initialRow][initialCol] = ' ';
+		if(destRow === 0){
+			$(`.play-checker-tile[row=${destRow}][col=${destCol}]`).addClass('king');
+			checkerBoardArray[destRow][destCol] = 'bk';
+		}
 	}
 }
 
-function removePiece(){
+function removeOpponentPiece(){
+	//if checker is black king, 
+	if(checkerBoardArray[destRow][destCol] === 'bk'){
+		//if checker is up right,
+		if(destCol-initialCol > 0 ) {
+			//upright
+			if(destRow - initialRow > 0){
+				$(`.play-checker-tile[row=${initialRow-1}][col=${initialCol+1}]`).removeClass("black-checker");
+				checkerBoardArray[(initialRow-1)][(initialCol+1)] = ' ';
+			} else if (destRow - initialRow < 0) {//downright
+				$(`.play-checker-tile[row=${initialRow+1}][col=${initialCol+1}]`).removeClass("black-checker");
+				checkerBoardArray[(initialRow+1)][(initialCol+1)] = ' ';
+			}
+		} else if(destCol-initialCol < 0 ) {
+			//upright
+			if(destRow - initialRow > 0){
+				$(`.play-checker-tile[row=${initialRow-1}][col=${initialCol-1}]`).removeClass("black-checker");
+				checkerBoardArray[(initialRow-1)][(initialCol+1)] = ' ';
+			} else if (destRow - initialRow < 0) {//downright
+				$(`.play-checker-tile[row=${initialRow+1}][col=${initialCol-1}]`).removeClass("black-checker");
+				checkerBoardArray[(initialRow+1)][(initialCol+1)] = ' ';
+			}
+		}
+	}
+	if(checkerBoardArray[destRow][destCol] === 'rk'){
+		//if checker is up right,
+		if(destCol-initialCol > 0 ) {
+			//upright
+			if(destRow - initialRow > 0){
+				$(`.play-checker-tile[row=${initialRow-1}][col=${initialCol+1}]`).removeClass("red-checker");
+				checkerBoardArray[(initialRow-1)][(initialCol+1)] = ' ';
+			} else if (destRow - initialRow < 0) {//downright
+				$(`.play-checker-tile[row=${initialRow+1}][col=${initialCol+1}]`).removeClass("red-checker");
+				checkerBoardArray[(initialRow+1)][(initialCol+1)] = ' ';
+			}else if(destCol-initialCol < 0 ) {
+				//upright
+				if(destRow - initialRow > 0){
+					$(`.play-checker-tile[row=${initialRow-1}][col=${initialCol-1}]`).removeClass("black-checker");
+					checkerBoardArray[(initialRow-1)][(initialCol+1)] = ' ';
+				} else if (destRow - initialRow < 0) {//downright
+					$(`.play-checker-tile[row=${initialRow+1}][col=${initialCol-1}]`).removeClass("black-checker");
+					checkerBoardArray[(initialRow+1)][(initialCol+1)] = ' ';
+				}
+			}
+		}
+	}
 	if(checkerBoardArray[destRow][destCol] === 'b'){
 		if(destCol-initialCol > 0 ) {
 			$(`.play-checker-tile[row=${initialRow-1}][col=${initialCol+1}]`).removeClass("red-checker");
@@ -175,14 +242,13 @@ function removePiece(){
 		redCounter++;
 	}
 }
-
 function handleCheckerMove(){
 	$('.play-checker-tile').removeClass('highlight');
 	destRow = parseInt($(this).attr('row'));
 	destCol = parseInt($(this).attr('col'));
 	if(Math.abs(destRow - initialRow) === 2){
 		movePiece();
-		removePiece();
+		removeOpponentPiece();
 		switchPlayer();
 	}
 	else if(Math.abs(destRow - initialRow) === 1){
