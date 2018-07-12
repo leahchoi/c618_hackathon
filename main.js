@@ -20,7 +20,7 @@ var checkerBoardArray = [
 				['r', ' ', 'r', ' ', 'r', ' ', 'r', ' '], 
 				[' ', 'r', ' ', 'r', ' ', 'r', ' ', 'r'], 
 				[' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '], 
-				[' ', ' ', ' ', 'r', ' ', ' ', ' ', ' '], 
+				[' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '], 
 				['b', ' ', 'b', ' ', 'b', ' ', 'b', ' '], 
 				[' ', 'b', ' ', 'b', ' ', 'b', ' ', 'b'],
 				['b', ' ', 'b', ' ', 'b', ' ', 'b', ' ']
@@ -177,6 +177,7 @@ function removePiece(){
 }
 
 function handleCheckerMove(){
+	$('.play-checker-tile').removeClass('highlight');
 	destRow = parseInt($(this).attr('row'));
 	destCol = parseInt($(this).attr('col'));
 	if(Math.abs(destRow - initialRow) === 2){
