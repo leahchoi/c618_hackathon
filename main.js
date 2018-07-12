@@ -382,10 +382,9 @@ function movePiece(){
 }
 //This function will remove the opponent's checker
 function removeOpponentPiece(){
-//if black king, 
 	var destinationPiece = checkerBoardArray[destRow][destCol];
+//if its a king
 	if(checkerBoardArray[destRow][destCol].indexOf('k') !== -1) {
-//if the checker moved right,
 		var color = '';
 		if (destinationPiece.indexOf('b')) {
 			color = 'black';
@@ -393,25 +392,29 @@ function removeOpponentPiece(){
 			color = 'red';
 		}
 		var removeCheckerClass = color + '-checker';
+		var removeKingClass = color + 'king';
+		var classesToRemove = `${removeCheckerClass} ${removeKingClass}`;
 		if(destCol-initialCol > 0 ) {
+			debugger;
 			//right up
 			if(destRow - initialRow < 0){
-				$(`.play-checker-tile[row=${initialRow-1}][col=${initialCol+1}]`).removeClass(removeCheckerClass);
+				$(`.play-checker-tile[row=${initialRow-1}][col=${initialCol+1}]`).removeClass(classesToRemove);
 				checkerBoardArray[(initialRow-1)][(initialCol+1)] = ' ';
 //right down
 			} else if (destRow - initialRow > 0) {
-				$(`.play-checker-tile[row=${initialRow+1}][col=${initialCol+1}]`).removeClass(removeCheckerClass);
+				$(`.play-checker-tile[row=${initialRow+1}][col=${initialCol+1}]`).removeClass(classesToRemove);
 				checkerBoardArray[(initialRow+1)][(initialCol+1)] = ' ';
 // if checker moved left
 			}
 		} else if(destCol-initialCol < 0 ) {
-//left up
+//left up	
+			debugger;
 			if(destRow - initialRow < 0){
-				$(`.play-checker-tile[row=${initialRow-1}][col=${initialCol-1}]`).removeClass(removeCheckerClass);
-				checkerBoardArray[(initialRow-1)][(initialCol+1)] = ' ';
+				$(`.play-checker-tile[row=${initialRow-1}][col=${initialCol-1}]`).removeClass(classesToRemove);
+				checkerBoardArray[(initialRow-1)][(initialCol-1)] = ' ';
 //left down
 			} else if (destRow - initialRow > 0) {
-				$(`.play-checker-tile[row=${initialRow+1}][col=${initialCol-1}]`).removeClass(removeCheckerClass);
+				$(`.play-checker-tile[row=${initialRow+1}][col=${initialCol-1}]`).removeClass(classesToRemove);
 				checkerBoardArray[(initialRow+1)][(initialCol-1)] = ' ';
 			}
 		}
@@ -459,8 +462,8 @@ function removeOpponentPiece(){
 		else if (destCol-initialCol < 0 ) {
 			$(`.play-checker-tile[row=${initialRow-1}][col=${initialCol-1}]`).removeClass("red-checker");
 			checkerBoardArray[(initialRow-1)][(initialCol-1)] = ' ';
+			blackCounter++;
 		}
-		blackCounter++;
 	}
 //else if red checker
 	else if(checkerBoardArray[destRow][destCol] === 'r'){
@@ -474,8 +477,8 @@ function removeOpponentPiece(){
 		else if (destCol-initialCol < 0 ) {
 			$(`.play-checker-tile[row=${destRow-1}][col=${destCol+1}]`).removeClass("black-checker");
 			checkerBoardArray[(destRow-1)][(destCol+1)] = ' ';
+			redCounter++;
 		}
-		redCounter++;
 	}
 	$("#player1score").text(redCounter);
 	$("#player2score").text(blackCounter);
@@ -483,6 +486,7 @@ function removeOpponentPiece(){
 		win();
 	}
 }
+
 //This function calls appropriate functions depending on the checker's move
 function handleCheckerMove(){
 	$('.play-checker-tile').removeClass('highlight');
