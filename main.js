@@ -61,6 +61,7 @@ function clickHandler(){
 	$('.black-checker').click(highlightBlack);
 	$('.red-checker').click(highlightRed);
   $(".gameboard").on("click", ".highlight", handleCheckerMove);
+  $(".reset-button").on("click", resetGame);
 }
 
 function highlightBlack(){
@@ -170,3 +171,37 @@ function handleCheckerMove(){
 		movePiece();
 	}
 }
+
+//Needs to play with this before it works properly
+function win() {
+    var modal = $('<div>').addClass("winModal");
+    var winStr = $('<div>').addClass('winTextStyle').text('You won! You did it!');
+    resetBtn.click(function () {
+        $(modal).remove();
+        resetGame();
+    });
+    modal.append(resetBtn, winStr);
+    $('.container').append(modal);
+}
+
+function resetGame(){
+	//Write if statement...if win modal exists then remove the modal
+    initialRow = null;
+    initialCol = null;
+    destRow = null;
+    destCol = null;
+
+    checkerBoardArray = [
+        [' ', 'r', ' ', 'r', ' ', 'r', ' ', 'r'],
+        ['r', ' ', 'r', ' ', 'r', ' ', 'r', ' '],
+        [' ', 'r', ' ', 'r', ' ', 'r', ' ', 'r'],
+        [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+        [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+        ['b', ' ', 'b', ' ', 'b', ' ', 'b', ' '],
+        [' ', 'b', ' ', 'b', ' ', 'b', ' ', 'b'],
+        ['b', ' ', 'b', ' ', 'b', ' ', 'b', ' ']
+    ]
+
+}
+
+
