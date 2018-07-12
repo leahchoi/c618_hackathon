@@ -91,12 +91,20 @@ function highlightBlack(){
 				if(checkerBoardArray[twoMovesRowLeft][twoMovesColLeft] === ' '){	
 					$(`.play-checker-tile[row=${twoMovesRowLeft}][col=${twoMovesColLeft}]`).addClass('highlight');
 				}	
+			} else if(checkerBoardArray[oneMoveRowLeft][oneMoveColLeft] === 'rk' && 0 <= twoMovesRowLeft && 0 <= twoMovesColLeft){
+				if(checkerBoardArray[twoMovesRowLeft][twoMovesColLeft] === ' '){	
+					$(`.play-checker-tile[row=${twoMovesRowLeft}][col=${twoMovesColLeft}]`).addClass('highlight');
+				}	
 			}
 		}	 
 		if(checkerBoardArray.length > oneMoveRowRight && checkerBoardArray.length > oneMoveColRight){	
 			if(checkerBoardArray[oneMoveRowRight][oneMoveColRight] === ' '){
 				$(`.play-checker-tile[row=${oneMoveRowRight}][col=${oneMoveColRight}]`).addClass('highlight');
 			} else if(checkerBoardArray[oneMoveRowRight][oneMoveColRight] === 'r' && 0 <= twoMovesRowRight && 0 <= twoMovesColRight){
+				if(checkerBoardArray[twoMovesRowRight][twoMovesColRight] === ' '){
+					$(`.play-checker-tile[row=${twoMovesRowRight}][col=${twoMovesColRight}]`).addClass('highlight');
+				}
+			} else if(checkerBoardArray[oneMoveRowRight][oneMoveColRight] === 'rk' && 0 <= twoMovesRowRight && 0 <= twoMovesColRight){
 				if(checkerBoardArray[twoMovesRowRight][twoMovesColRight] === ' '){
 					$(`.play-checker-tile[row=${twoMovesRowRight}][col=${twoMovesColRight}]`).addClass('highlight');
 				}
@@ -107,6 +115,7 @@ function highlightBlack(){
 	}	
 }
 function highlightRed(){
+	debugger;
 	if (redTurn){
 			$('.play-checker-tile').removeClass('highlight');
 			initialRow = parseInt($(this).attr('row'));
@@ -127,12 +136,20 @@ function highlightRed(){
 				if(checkerBoardArray[twoMovesRowLeft][twoMovesColLeft] === ' '){	
 					$(`.play-checker-tile[row=${twoMovesRowLeft}][col=${twoMovesColLeft}]`).addClass('highlight');
 				}	
-			}
+			} else if(checkerBoardArray[oneMoveRowLeft][oneMoveColLeft] === 'bk' && checkerBoardArray.length > twoMovesRowLeft && checkerBoardArray.length > twoMovesColLeft){
+				if(checkerBoardArray[twoMovesRowLeft][twoMovesColLeft] === ' '){	
+					$(`.play-checker-tile[row=${twoMovesRowLeft}][col=${twoMovesColLeft}]`).addClass('highlight');
+				}
+			}		
 		}	 
 		if(checkerBoardArray.length > oneMoveRowRight && checkerBoardArray.length > oneMoveColRight){	
 			if(checkerBoardArray[oneMoveRowRight][oneMoveColRight] === ' '){
 				$(`.play-checker-tile[row=${oneMoveRowRight}][col=${oneMoveColRight}]`).addClass('highlight');
 			} else if(checkerBoardArray[oneMoveRowRight][oneMoveColRight] === 'b' && checkerBoardArray.length > twoMovesRowRight && checkerBoardArray.length > twoMovesColRight){
+				if(checkerBoardArray[twoMovesRowRight][twoMovesColRight] === ' '){
+					$(`.play-checker-tile[row=${twoMovesRowRight}][col=${twoMovesColRight}]`).addClass('highlight');
+				}
+			}else if(checkerBoardArray[oneMoveRowRight][oneMoveColRight] === 'bk' && checkerBoardArray.length > twoMovesRowRight && checkerBoardArray.length > twoMovesColRight){
 				if(checkerBoardArray[twoMovesRowRight][twoMovesColRight] === ' '){
 					$(`.play-checker-tile[row=${twoMovesRowRight}][col=${twoMovesColRight}]`).addClass('highlight');
 				}
@@ -172,12 +189,20 @@ function highlightRedKing(){
 				if(checkerBoardArray[twoMovesRowLeftDown][twoMovesColLeftDown] === ' '){	
 					$(`.play-checker-tile[row=${twoMovesRowLeftDown}][col=${twoMovesColLeftDown}]`).addClass('highlight');
 				}	
+			} else if(checkerBoardArray[oneMoveRowLeftDown][oneMoveColLeftDown] === 'bk' && checkerBoardArray.length > twoMovesRowLeftDown && checkerBoardArray.length > twoMovesColLeftDown){
+				if(checkerBoardArray[twoMovesRowLeftDown][twoMovesColLeftDown] === ' '){	
+					$(`.play-checker-tile[row=${twoMovesRowLeftDown}][col=${twoMovesColLeftDown}]`).addClass('highlight');
+				}	
 			}
 		}	 
 		if(checkerBoardArray.length > oneMoveRowRightDown && checkerBoardArray.length > oneMoveColRightDown){	
 			if(checkerBoardArray[oneMoveRowRightDown][oneMoveColRightDown] === ' '){
 				$(`.play-checker-tile[row=${oneMoveRowRightDown}][col=${oneMoveColRightDown}]`).addClass('highlight');
 			} else if(checkerBoardArray[oneMoveRowRightDown][oneMoveColRightDown] === 'b' && checkerBoardArray.length > twoMovesRowRightDown && checkerBoardArray.length > twoMovesColRightDown){
+				if(checkerBoardArray[twoMovesRowRightDown][twoMovesColRightDown] === ' '){
+					$(`.play-checker-tile[row=${twoMovesRowRightDown}][col=${twoMovesColRightDown}]`).addClass('highlight');
+				}
+			} else if(checkerBoardArray[oneMoveRowRightDown][oneMoveColRightDown] === 'bk' && checkerBoardArray.length > twoMovesRowRightDown && checkerBoardArray.length > twoMovesColRightDown){
 				if(checkerBoardArray[twoMovesRowRightDown][twoMovesColRightDown] === ' '){
 					$(`.play-checker-tile[row=${twoMovesRowRightDown}][col=${twoMovesColRightDown}]`).addClass('highlight');
 				}
@@ -190,12 +215,20 @@ function highlightRedKing(){
 				if(checkerBoardArray[twoMovesRowLeftUp][twoMovesColLeftUp] === ' '){	
 					$(`.play-checker-tile[row=${twoMovesRowLeftUp}][col=${twoMovesColLeftUp}]`).addClass('highlight');
 				}	
+			} else if(checkerBoardArray[oneMoveRowLeftUp][oneMoveColLeftUp] === 'bk' && 0 <= twoMovesRowLeftUp && 0 <= twoMovesColLeftUp){
+				if(checkerBoardArray[twoMovesRowLeftUp][twoMovesColLeftUp] === ' '){	
+					$(`.play-checker-tile[row=${twoMovesRowLeftUp}][col=${twoMovesColLeftUp}]`).addClass('highlight');
+				}	
 			}
 		}	 
 		if(checkerBoardArray.length > oneMoveRowRightUp && checkerBoardArray.length > oneMoveColRightUp){	
 			if(checkerBoardArray[oneMoveRowRightUp][oneMoveColRightUp] === ' '){
 				$(`.play-checker-tile[row=${oneMoveRowRightUp}][col=${oneMoveColRightUp}]`).addClass('highlight');
 			} else if(checkerBoardArray[oneMoveRowRightUp][oneMoveColRightUp] === 'b' && 0 <= twoMovesRowRightUp && 0 <= twoMovesColRight){
+				if(checkerBoardArray[twoMovesRowRightUp][twoMovesColRight] === ' '){
+					$(`.play-checker-tile[row=${twoMovesRowRightUp}][col=${twoMovesColRight}]`).addClass('highlight');
+				}
+			} else if(checkerBoardArray[oneMoveRowRightUp][oneMoveColRightUp] === 'bk' && 0 <= twoMovesRowRightUp && 0 <= twoMovesColRight){
 				if(checkerBoardArray[twoMovesRowRightUp][twoMovesColRight] === ' '){
 					$(`.play-checker-tile[row=${twoMovesRowRightUp}][col=${twoMovesColRight}]`).addClass('highlight');
 				}
@@ -234,12 +267,20 @@ function highlightBlackKing(){
 				if(checkerBoardArray[twoMovesRowLeftDown][twoMovesColLeftDown] === ' '){	
 					$(`.play-checker-tile[row=${twoMovesRowLeftDown}][col=${twoMovesColLeftDown}]`).addClass('highlight');
 				}	
+			} else if(checkerBoardArray[oneMoveRowLeftDown][oneMoveColLeftDown] === 'rk' && checkerBoardArray.length > twoMovesRowLeftDown && checkerBoardArray.length > twoMovesColLeftDown){
+				if(checkerBoardArray[twoMovesRowLeftDown][twoMovesColLeftDown] === ' '){	
+					$(`.play-checker-tile[row=${twoMovesRowLeftDown}][col=${twoMovesColLeftDown}]`).addClass('highlight');
+				}	
 			}
 		}	 
 		if(checkerBoardArray.length > oneMoveRowRightDown && checkerBoardArray.length > oneMoveColRightDown){	
 			if(checkerBoardArray[oneMoveRowRightDown][oneMoveColRightDown] === ' '){
 				$(`.play-checker-tile[row=${oneMoveRowRightDown}][col=${oneMoveColRightDown}]`).addClass('highlight');
 			} else if(checkerBoardArray[oneMoveRowRightDown][oneMoveColRightDown] === 'r' && checkerBoardArray.length > twoMovesRowRightDown && checkerBoardArray.length > twoMovesColRightDown){
+				if(checkerBoardArray[twoMovesRowRightDown][twoMovesColRightDown] === ' '){
+					$(`.play-checker-tile[row=${twoMovesRowRightDown}][col=${twoMovesColRightDown}]`).addClass('highlight');
+				}
+			} else if(checkerBoardArray[oneMoveRowRightDown][oneMoveColRightDown] === 'rk' && checkerBoardArray.length > twoMovesRowRightDown && checkerBoardArray.length > twoMovesColRightDown){
 				if(checkerBoardArray[twoMovesRowRightDown][twoMovesColRightDown] === ' '){
 					$(`.play-checker-tile[row=${twoMovesRowRightDown}][col=${twoMovesColRightDown}]`).addClass('highlight');
 				}
@@ -252,12 +293,20 @@ function highlightBlackKing(){
 				if(checkerBoardArray[twoMovesRowLeftUp][twoMovesColLeftUp] === ' '){	
 					$(`.play-checker-tile[row=${twoMovesRowLeftUp}][col=${twoMovesColLeftUp}]`).addClass('highlight');
 				}	
+			} else if(checkerBoardArray[oneMoveRowLeftUp][oneMoveColLeftUp] === 'rk' && 0 <= twoMovesRowLeftUp && 0 <= twoMovesColLeftUp){
+				if(checkerBoardArray[twoMovesRowLeftUp][twoMovesColLeftUp] === ' '){	
+					$(`.play-checker-tile[row=${twoMovesRowLeftUp}][col=${twoMovesColLeftUp}]`).addClass('highlight');
+				}	
 			}
 		}	 
 		if(checkerBoardArray.length > oneMoveRowRightUp && checkerBoardArray.length > oneMoveColRightUp){	
 			if(checkerBoardArray[oneMoveRowRightUp][oneMoveColRightUp] === ' '){
 				$(`.play-checker-tile[row=${oneMoveRowRightUp}][col=${oneMoveColRightUp}]`).addClass('highlight');
 			} else if(checkerBoardArray[oneMoveRowRightUp][oneMoveColRightUp] === 'r' && 0 <= twoMovesRowRightUp && 0 <= twoMovesColRight){
+				if(checkerBoardArray[twoMovesRowRightUp][twoMovesColRight] === ' '){
+					$(`.play-checker-tile[row=${twoMovesRowRightUp}][col=${twoMovesColRight}]`).addClass('highlight');
+				}
+			} else if(checkerBoardArray[oneMoveRowRightUp][oneMoveColRightUp] === 'rk' && 0 <= twoMovesRowRightUp && 0 <= twoMovesColRight){
 				if(checkerBoardArray[twoMovesRowRightUp][twoMovesColRight] === ' '){
 					$(`.play-checker-tile[row=${twoMovesRowRightUp}][col=${twoMovesColRight}]`).addClass('highlight');
 				}

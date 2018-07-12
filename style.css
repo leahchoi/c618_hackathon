@@ -189,18 +189,22 @@
 
 .redking{
 	background-image: url(images/danking.png);
+	background-size: 100%;
+	border: 3px solid white;
 }
 .black-checker{
 	background-image: url(images/cody.jpg);
 	background-size: 100%;
-	border: 3px solid white;	
+	border: 3px solid white;
 }
 
 .blackking{
 	background-image: url(images/collettequeen.png);
+	background-size: 100%;
+	border: 3px solid white;
 }
 .highlight {
-	border: 3px solid pink;
+	border: solid 2px #4DB6AC;
 }
 
 .game-area {
@@ -224,12 +228,3 @@
 	height: 100%;
 	width: 100%;
 }
-/* .redking{
-	background-color: red;
-	border: 3px solid white;
-}
-
-.blackking{
-	background-color: gray;
-	border: 3px solid white;
-} */
