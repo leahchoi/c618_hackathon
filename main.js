@@ -330,7 +330,6 @@ function removeOpponentPiece(){
 //if black king, 
 	var destinationPiece = checkerBoardArray[destRow][destCol];
 	if(checkerBoardArray[destRow][destCol].indexOf('k') !== -1) {
-//if the checker moved right,
 		var color = '';
 		if (destinationPiece.indexOf('b')) {
 			color = 'black';
@@ -338,8 +337,9 @@ function removeOpponentPiece(){
 			color = 'red';
 		}
 		var removeCheckerClass = color + '-checker';
+//if the checker moved right,
 		if(destCol-initialCol > 0 ) {
-			//right up
+//right up
 			if(destRow - initialRow < 0){
 				$(`.play-checker-tile[row=${initialRow-1}][col=${initialCol+1}]`).removeClass(removeCheckerClass);
 				checkerBoardArray[(initialRow-1)][(initialCol+1)] = ' ';
@@ -353,7 +353,7 @@ function removeOpponentPiece(){
 //left up
 			if(destRow - initialRow < 0){
 				$(`.play-checker-tile[row=${initialRow-1}][col=${initialCol-1}]`).removeClass(removeCheckerClass);
-				checkerBoardArray[(initialRow-1)][(initialCol+1)] = ' ';
+				checkerBoardArray[(initialRow-1)][(initialCol-1)] = ' ';
 //left down
 			} else if (destRow - initialRow > 0) {
 				$(`.play-checker-tile[row=${initialRow+1}][col=${initialCol-1}]`).removeClass(removeCheckerClass);
@@ -379,7 +379,7 @@ function removeOpponentPiece(){
 //left up
 			if(destRow - initialRow < 0){
 				$(`.play-checker-tile[row=${initialRow-1}][col=${initialCol-1}]`).removeClass("black-checker");
-				checkerBoardArray[(initialRow-1)][(initialCol+1)] = ' ';
+				checkerBoardArray[(initialRow-1)][(initialCol-1)] = ' ';
 //left down
 			} else if (destRow - initialRow > 0) {
 				$(`.play-checker-tile[row=${initialRow+1}][col=${initialCol-1}]`).removeClass("black-checker");
