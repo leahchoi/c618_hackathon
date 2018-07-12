@@ -221,7 +221,7 @@ function highlightRedKing(){
 				}	
 			}
 		}	 
-		if(checkerBoardArray.length > oneMoveRowRightUp && checkerBoardArray.length > oneMoveColRightUp){	
+		if(0 <= oneMoveRowRightUp && 0 <= oneMoveColRightUp){	
 			if(checkerBoardArray[oneMoveRowRightUp][oneMoveColRightUp] === ' '){
 				$(`.play-checker-tile[row=${oneMoveRowRightUp}][col=${oneMoveColRightUp}]`).addClass('highlight');
 			} else if(checkerBoardArray[oneMoveRowRightUp][oneMoveColRightUp] === 'b' && 0 <= twoMovesRowRightUp && 0 <= twoMovesColRight){
@@ -239,6 +239,7 @@ function highlightRedKing(){
 	}	
 }
 function highlightBlackKing(){
+	debugger;
 	if (blackTurn){
 			$('.play-checker-tile').removeClass('highlight');
 			initialRow = parseInt($(this).attr('row'));
@@ -299,7 +300,7 @@ function highlightBlackKing(){
 				}	
 			}
 		}	 
-		if(checkerBoardArray.length > oneMoveRowRightUp && checkerBoardArray.length > oneMoveColRightUp){	
+		if(0 <= oneMoveRowRightUp && 0 <= oneMoveColRightUp){	
 			if(checkerBoardArray[oneMoveRowRightUp][oneMoveColRightUp] === ' '){
 				$(`.play-checker-tile[row=${oneMoveRowRightUp}][col=${oneMoveColRightUp}]`).addClass('highlight');
 			} else if(checkerBoardArray[oneMoveRowRightUp][oneMoveColRightUp] === 'r' && 0 <= twoMovesRowRightUp && 0 <= twoMovesColRight){
