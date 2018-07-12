@@ -1,6 +1,7 @@
 $(document).ready(runThisOnLoad);
 var blackCounter = 0;
 var redCounter = 0;
+
 function runThisOnLoad(){
 	makeCheckersBoard();
 	clickHandler();
@@ -17,7 +18,7 @@ var checkerBoardArray = [
 				['r', ' ', 'r', ' ', 'r', ' ', 'r', ' '], 
 				[' ', 'r', ' ', 'r', ' ', 'r', ' ', 'r'], 
 				[' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '], 
-				[' ', ' ', ' ', 'r', ' ', ' ', ' ', ' '], 
+				[' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
 				['b', ' ', 'b', ' ', 'b', ' ', 'b', ' '], 
 				[' ', 'b', ' ', 'b', ' ', 'b', ' ', 'b'],
 				['b', ' ', 'b', ' ', 'b', ' ', 'b', ' ']
