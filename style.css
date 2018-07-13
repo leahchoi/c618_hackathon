@@ -37,7 +37,7 @@
 }
 
 .logo{
-	width: 20%;
+	width: 15%;
 	text-align: center;
 }
 
@@ -49,7 +49,6 @@
 .title-right-cont{
 	height: 80%;
 	width: 34%;
-	/*border: solid 2px red;*/
 	display: flex;
 	align-items: flex-end;
 }
@@ -76,7 +75,6 @@
 .player-image-cont{
 	width: 100%;
 	height: 35%;
-	/* border: solid 1vh green; */
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
@@ -99,7 +97,6 @@
 	border: solid 5px green;
 	width: 80%;
 	height: 90%;
-	/*border: solid 2px green;*/
 	border-radius: 50%;
 }
 
@@ -125,11 +122,21 @@
 	font-size: 4vh;
 	color: white;
 }
+
+.win-cont{
+	width: 100%;
+	height: 10%;
+}
+
+#player1win, #player2win{
+	font-size: 5vh;
+	color:  #4DB6AC;
+}
 .button-cont{
 	position: relative;
 	width: 100%;
 	height: 10%;
-	top: 33%;
+	top: 24%;
 	display: flex;
 	justify-content: space-evenly;
 	align-items: center;
@@ -166,11 +173,9 @@
 
 .red-square {
 	background-color: #4DB6AC;
-	/*border: 1px solid yellow;*/
 }
 .black-square {
 	background-color: #424242;
-	/*border: 1px solid yellow;*/
 }
 
 .play-checker-tile {
@@ -215,19 +220,7 @@
 	margin-top: 2%;
 }
 
-.winModal {
-	display: initial;
-	/*background-color: black;*/
-	background-image: url(images/fireworks.jpg);
-	position: fixed;
-	background-repeat: no-repeat;
-	background-size: contain;
-	background-position: 50% 37%;
-	top: 0;
-	left: 0;
-	height: 100%;
-	width: 100%;
-}
 .highlight2 {
 	border: 3px solid green;
 }
+
