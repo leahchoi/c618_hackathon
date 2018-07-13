@@ -91,20 +91,20 @@ function clickHandler() {
 }
 
 function highlightBlack() {
-
-	if (blackTurn) {
-		$('.play-checker-tile').removeClass('highlight');
-		initialRow = parseInt($(this).attr('row'));
-		initialCol = parseInt($(this).attr('col'));
-		var oneMoveRowLeft = initialRow - 1;
-		var oneMoveColLeft = initialCol - 1;
-		var oneMoveRowRight = initialRow - 1;
-		var oneMoveColRight = initialCol + 1;
-		var twoMovesRowLeft = initialRow - 2;
-		var twoMovesColLeft = initialCol - 2;
-		var twoMovesRowRight = initialRow - 2;
-		var twoMovesColRight = initialCol + 2;
-
+	if (blackTurn){
+			$('.play-checker-tile').removeClass('highlight highlight2');
+			initialRow = parseInt($(this).attr('row'));
+			initialCol = parseInt($(this).attr('col'));
+			$(`.play-checker-tile[row=${initialRow}][col=${initialCol}]`).addClass('highlight2');
+		var oneMoveRowLeft = initialRow-1;
+		var oneMoveColLeft = initialCol-1;
+		var oneMoveRowRight = initialRow-1;
+		var oneMoveColRight = initialCol+1;
+		var twoMovesRowLeft = initialRow-2;
+		var twoMovesColLeft = initialCol-2;
+		var twoMovesRowRight = initialRow-2;
+		var twoMovesColRight = initialCol+2;
+    
 		if (0 <= oneMoveRowLeft && 0 <= oneMoveColLeft) {
 			if (checkerBoardArray[oneMoveRowLeft][oneMoveColLeft] === ' ') {
 				$(`.play-checker-tile[row=${oneMoveRowLeft}][col=${oneMoveColLeft}]`).addClass('highlight');
@@ -136,20 +136,20 @@ function highlightBlack() {
 	}
 }
 
-function highlightRed() {
-	debugger;
-	if (redTurn) {
-		$('.play-checker-tile').removeClass('highlight');
-		initialRow = parseInt($(this).attr('row'));
-		initialCol = parseInt($(this).attr('col'));
-		var oneMoveRowLeft = initialRow + 1;
-		var oneMoveColLeft = initialCol - 1;
-		var oneMoveRowRight = initialRow + 1;
-		var oneMoveColRight = initialCol + 1;
-		var twoMovesRowLeft = initialRow + 2;
-		var twoMovesColLeft = initialCol - 2;
-		var twoMovesRowRight = initialRow + 2;
-		var twoMovesColRight = initialCol + 2;
+function highlightRed(){
+	if (redTurn){
+			$('.play-checker-tile').removeClass('highlight highlight2');
+			initialRow = parseInt($(this).attr('row'));
+			initialCol = parseInt($(this).attr('col'));
+			$(`.play-checker-tile[row=${initialRow}][col=${initialCol}]`).addClass('highlight2');
+		var oneMoveRowLeft = initialRow+1;
+		var oneMoveColLeft = initialCol-1;
+		var oneMoveRowRight = initialRow+1;
+		var oneMoveColRight = initialCol+1;
+		var twoMovesRowLeft = initialRow+2;
+		var twoMovesColLeft = initialCol-2;
+		var twoMovesRowRight = initialRow+2;
+		var twoMovesColRight = initialCol+2;
 
 		if (checkerBoardArray.length > oneMoveRowLeft && checkerBoardArray.length > oneMoveColLeft) {
 			if (checkerBoardArray[oneMoveRowLeft][oneMoveColLeft] === ' ') {
@@ -182,27 +182,28 @@ function highlightRed() {
 	}
 }
 
-function highlightRedKing() {
-	if (redTurn) {
-		$('.play-checker-tile').removeClass('highlight');
-		initialRow = parseInt($(this).attr('row'));
-		initialCol = parseInt($(this).attr('col'));
-		var oneMoveRowLeftDown = initialRow + 1;
-		var oneMoveColLeftDown = initialCol - 1;
-		var oneMoveRowRightDown = initialRow + 1;
-		var oneMoveColRightDown = initialCol + 1;
-		var twoMovesRowLeftDown = initialRow + 2;
-		var twoMovesColLeftDown = initialCol - 2;
-		var twoMovesRowRightDown = initialRow + 2;
-		var twoMovesColRightDown = initialCol + 2;
-		var oneMoveRowLeftUp = initialRow - 1;
-		var oneMoveColLeftUp = initialCol - 1;
-		var oneMoveRowRightUp = initialRow - 1;
-		var oneMoveColRightUp = initialCol + 1;
-		var twoMovesRowLeftUp = initialRow - 2;
-		var twoMovesColLeftUp = initialCol - 2;
-		var twoMovesRowRightUp = initialRow - 2;
-		var twoMovesColRight = initialCol + 2;
+function highlightRedKing(){
+	if (redTurn){
+			$('.play-checker-tile').removeClass('highlight highlight2');
+			initialRow = parseInt($(this).attr('row'));
+			initialCol = parseInt($(this).attr('col'));
+			$(`.play-checker-tile[row=${initialRow}][col=${initialCol}]`).addClass('highlight2');
+		var oneMoveRowLeftDown = initialRow+1;
+		var oneMoveColLeftDown = initialCol-1;
+		var oneMoveRowRightDown = initialRow+1;
+		var oneMoveColRightDown = initialCol+1;
+		var twoMovesRowLeftDown = initialRow+2;
+		var twoMovesColLeftDown = initialCol-2;
+		var twoMovesRowRightDown = initialRow+2;
+		var twoMovesColRightDown = initialCol+2;
+		var oneMoveRowLeftUp = initialRow-1;
+		var oneMoveColLeftUp = initialCol-1;
+		var oneMoveRowRightUp = initialRow-1;
+		var oneMoveColRightUp = initialCol+1;
+		var twoMovesRowLeftUp = initialRow-2;
+		var twoMovesColLeftUp = initialCol-2;
+		var twoMovesRowRightUp = initialRow-2;
+		var twoMovesColRight = initialCol+2;
 
 		if (checkerBoardArray.length > oneMoveRowLeftDown && checkerBoardArray.length > oneMoveColLeftDown) {
 			if (checkerBoardArray[oneMoveRowLeftDown][oneMoveColLeftDown] === ' ') {
@@ -261,28 +262,28 @@ function highlightRedKing() {
 	}
 }
 
-function highlightBlackKing() {
-	debugger;
-	if (blackTurn) {
-		$('.play-checker-tile').removeClass('highlight');
-		initialRow = parseInt($(this).attr('row'));
-		initialCol = parseInt($(this).attr('col'));
-		var oneMoveRowLeftDown = initialRow + 1;
-		var oneMoveColLeftDown = initialCol - 1;
-		var oneMoveRowRightDown = initialRow + 1;
-		var oneMoveColRightDown = initialCol + 1;
-		var twoMovesRowLeftDown = initialRow + 2;
-		var twoMovesColLeftDown = initialCol - 2;
-		var twoMovesRowRightDown = initialRow + 2;
-		var twoMovesColRightDown = initialCol + 2;
-		var oneMoveRowLeftUp = initialRow - 1;
-		var oneMoveColLeftUp = initialCol - 1;
-		var oneMoveRowRightUp = initialRow - 1;
-		var oneMoveColRightUp = initialCol + 1;
-		var twoMovesRowLeftUp = initialRow - 2;
-		var twoMovesColLeftUp = initialCol - 2;
-		var twoMovesRowRightUp = initialRow - 2;
-		var twoMovesColRight = initialCol + 2;
+function highlightBlackKing(){
+	if (blackTurn){
+			$('.play-checker-tile').removeClass('highlight highlight2');
+			initialRow = parseInt($(this).attr('row'));
+			initialCol = parseInt($(this).attr('col'));
+			$(`.play-checker-tile[row=${initialRow}][col=${initialCol}]`).addClass('highlight2');
+		var oneMoveRowLeftDown = initialRow+1;
+		var oneMoveColLeftDown = initialCol-1;
+		var oneMoveRowRightDown = initialRow+1;
+		var oneMoveColRightDown = initialCol+1;
+		var twoMovesRowLeftDown = initialRow+2;
+		var twoMovesColLeftDown = initialCol-2;
+		var twoMovesRowRightDown = initialRow+2;
+		var twoMovesColRightDown = initialCol+2;
+		var oneMoveRowLeftUp = initialRow-1;
+		var oneMoveColLeftUp = initialCol-1;
+		var oneMoveRowRightUp = initialRow-1;
+		var oneMoveColRightUp = initialCol+1;
+		var twoMovesRowLeftUp = initialRow-2;
+		var twoMovesColLeftUp = initialCol-2;
+		var twoMovesRowRightUp = initialRow-2;
+		var twoMovesColRight = initialCol+2;
 
 		if (checkerBoardArray.length > oneMoveRowLeftDown && checkerBoardArray.length > oneMoveColLeftDown) {
 			if (checkerBoardArray[oneMoveRowLeftDown][oneMoveColLeftDown] === ' ') {
@@ -347,11 +348,13 @@ function switchPlayer() {
 		redTurn = true;
 		$(".player2-image").css("border-color", "red");
 		$(".player1-image").css("border-color", "green");
-	} else if (redTurn) {
+		$('.play-checker-tile').removeClass('highlight highlight2');
+	} else if(redTurn){
 		redTurn = false;
 		blackTurn = true;
 		$(".player1-image").css("border-color", "red");
 		$(".player2-image").css("border-color", "green");
+		$('.play-checker-tile').removeClass('highlight highlight2');
 	}
 }
 
@@ -504,6 +507,7 @@ function handleCheckerMove() {
 		switchPlayer();
 	}
 }
+
 //This function resets the whole game
 function resetGame() {
 	$(".gameboard").empty();
