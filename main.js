@@ -72,9 +72,10 @@ function clickHandler(){
 function highlightBlack(){
 
 	if (blackTurn){
-			$('.play-checker-tile').removeClass('highlight');
+			$('.play-checker-tile').removeClass('highlight highlight2');
 			initialRow = parseInt($(this).attr('row'));
 			initialCol = parseInt($(this).attr('col'));
+			$(`.play-checker-tile[row=${initialRow}][col=${initialCol}]`).addClass('highlight2');
 		var oneMoveRowLeft = initialRow-1;
 		var oneMoveColLeft = initialCol-1;
 		var oneMoveRowRight = initialRow-1;
@@ -115,11 +116,11 @@ function highlightBlack(){
 	}	
 }
 function highlightRed(){
-	debugger;
 	if (redTurn){
-			$('.play-checker-tile').removeClass('highlight');
+			$('.play-checker-tile').removeClass('highlight highlight2');
 			initialRow = parseInt($(this).attr('row'));
 			initialCol = parseInt($(this).attr('col'));
+			$(`.play-checker-tile[row=${initialRow}][col=${initialCol}]`).addClass('highlight2');
 		var oneMoveRowLeft = initialRow+1;
 		var oneMoveColLeft = initialCol-1;
 		var oneMoveRowRight = initialRow+1;
@@ -162,9 +163,10 @@ function highlightRed(){
 
 function highlightRedKing(){
 	if (redTurn){
-			$('.play-checker-tile').removeClass('highlight');
+			$('.play-checker-tile').removeClass('highlight highlight2');
 			initialRow = parseInt($(this).attr('row'));
 			initialCol = parseInt($(this).attr('col'));
+			$(`.play-checker-tile[row=${initialRow}][col=${initialCol}]`).addClass('highlight2');
 		var oneMoveRowLeftDown = initialRow+1;
 		var oneMoveColLeftDown = initialCol-1;
 		var oneMoveRowRightDown = initialRow+1;
@@ -239,11 +241,11 @@ function highlightRedKing(){
 	}	
 }
 function highlightBlackKing(){
-	debugger;
 	if (blackTurn){
-			$('.play-checker-tile').removeClass('highlight');
+			$('.play-checker-tile').removeClass('highlight highlight2');
 			initialRow = parseInt($(this).attr('row'));
 			initialCol = parseInt($(this).attr('col'));
+			$(`.play-checker-tile[row=${initialRow}][col=${initialCol}]`).addClass('highlight2');
 		var oneMoveRowLeftDown = initialRow+1;
 		var oneMoveColLeftDown = initialCol-1;
 		var oneMoveRowRightDown = initialRow+1;
@@ -326,11 +328,13 @@ function switchPlayer(){
 		redTurn = true;
 		$(".player2-image").css("border-color", "red");
 		$(".player1-image").css("border-color", "green");
+		$('.play-checker-tile').removeClass('highlight highlight2');
 	} else if(redTurn){
 		redTurn = false;
 		blackTurn = true;
 		$(".player1-image").css("border-color", "red");
 		$(".player2-image").css("border-color", "green");
+		$('.play-checker-tile').removeClass('highlight highlight2');
 	}
 }
 
