@@ -520,7 +520,7 @@ function win() {
 function resetGame(){
 	console.log('clicked on reset gamebutton')
 	//Write if statement...if win modal exists then remove the modal
-	$(modal).remove();
+	//$(modal).remove();
 	$(".gameboard").empty();
     initialRow = null;
     initialCol = null;
