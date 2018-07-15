@@ -86,7 +86,7 @@
 	background-size: 100%;
 	width: 80%;
 	height: 90%;
-	border: solid 5px red;
+	border: solid 5px white;
 	border-radius: 50%;
 }
 
@@ -189,24 +189,24 @@
 .red-checker{
 	background-image: url(images/andy.jpg);
 	background-size: 100%;
-	border: 3px solid white;
+	border: 3px solid #94112B;
 }
 
 .redking{
 	background-image: url(images/danking.png);
 	background-size: 100%;
-	border: 3px solid white;
+	border: 3px solid #94112B;
 }
 .black-checker{
 	background-image: url(images/cody.jpg);
 	background-size: 100%;
-	border: 3px solid white;
+	border: 3px solid #111111;
 }
 
 .blackking{
 	background-image: url(images/collette.png);
 	background-size: 100%;
-	border: 3px solid white;
+	border: 3px solid #111111;
 }
 .highlight {
 	border: solid 2px #4DB6AC;
