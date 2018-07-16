@@ -6,11 +6,13 @@ function runThisOnLoad() {
 }
 var blackCounter = 0;
 var redCounter = 0;
+var doubleJumpFlag = false;
 
 var initialRow = null;
 var initialCol = null;
 var destRow = null;
 var destCol = null;
+var possibleJumps = 0;
 
 var currentPiece = null;
 var oppositePiece = null;
@@ -181,7 +183,7 @@ function decideMovements(){
 }
 function checkDownLeft(){
 	if (8 > oneMoveRowLeftDown && 8 > oneMoveColLeftDown && -1 < oneMoveRowLeftDown && -1 < oneMoveColLeftDown){
-		if(checkerBoardArray[oneMoveRowLeftDown][oneMoveColLeftDown] === ' '){
+		if(checkerBoardArray[oneMoveRowLeftDown][oneMoveColLeftDown] === ' ' && !doubleJumpFlag){
 			$(`.play-checker-tile[row=${oneMoveRowLeftDown}][col=${oneMoveColLeftDown}]`).addClass('highlight');
 		} else if(checkerBoardArray[oneMoveRowLeftDown][oneMoveColLeftDown] === oppositePiece || checkerBoardArray[oneMoveRowLeftDown][oneMoveColLeftDown] === oppositePieceKing){
 			checkJump(twoMovesRowLeftDown, twoMovesColLeftDown);
@@ -192,7 +194,7 @@ function checkDownLeft(){
 }
 function checkDownRight(){
 	if (8 > oneMoveRowRightDown && 8 > oneMoveColRightDown && -1 < oneMoveRowRightDown && -1 < oneMoveColRightDown){
-		if(checkerBoardArray[oneMoveRowRightDown][oneMoveColRightDown] === ' '){
+		if(checkerBoardArray[oneMoveRowRightDown][oneMoveColRightDown] === ' ' && !doubleJumpFlag){
 			$(`.play-checker-tile[row=${oneMoveRowRightDown}][col=${oneMoveColRightDown}]`).addClass('highlight');
 		} else if(checkerBoardArray[oneMoveRowRightDown][oneMoveColRightDown] === oppositePiece || checkerBoardArray[oneMoveRowRightDown][oneMoveColRightDown] === oppositePieceKing){
 			checkJump(twoMovesRowRightDown, twoMovesColRightDown);
@@ -202,8 +204,9 @@ function checkDownRight(){
 	}
 }
 function checkUpLeft(){
+	debugger;
 	if (8 > oneMoveRowLeftUp && 8 > oneMoveColLeftUp && -1 < oneMoveRowLeftUp && -1 < oneMoveColLeftUp){
-		if(checkerBoardArray[oneMoveRowLeftUp][oneMoveColLeftUp] === ' '){
+		if(checkerBoardArray[oneMoveRowLeftUp][oneMoveColLeftUp] === ' ' && !doubleJumpFlag){
 			$(`.play-checker-tile[row=${oneMoveRowLeftUp}][col=${oneMoveColLeftUp}]`).addClass('highlight');
 		} else if(checkerBoardArray[oneMoveRowLeftUp][oneMoveColLeftUp] === oppositePiece || checkerBoardArray[oneMoveRowLeftUp][oneMoveColLeftUp] === oppositePieceKing){
 			checkJump(twoMovesRowLeftUp, twoMovesColLeftUp);
@@ -214,7 +217,7 @@ function checkUpLeft(){
 }	
 function checkUpRight(){
 	if (8 > oneMoveRowRightUp && 8 > oneMoveColRightUp && -1 < oneMoveRowRightUp && -1 < oneMoveColRightUp){
-		if(checkerBoardArray[oneMoveRowRightUp][oneMoveColRightUp] === ' '){
+		if(checkerBoardArray[oneMoveRowRightUp][oneMoveColRightUp] === ' ' && !doubleJumpFlag){
 			$(`.play-checker-tile[row=${oneMoveRowRightUp}][col=${oneMoveColRightUp}]`).addClass('highlight');
 		} else if(checkerBoardArray[oneMoveRowRightUp][oneMoveColRightUp] === oppositePiece || checkerBoardArray[oneMoveRowRightUp][oneMoveColRightUp] === oppositePieceKing){
 			checkJump(twoMovesRowRightUp, twoMovesColRightUp);
@@ -227,6 +230,7 @@ function checkJump(jumpRowDirection, jumpColDirection){
 	if(8 > jumpRowDirection && 8 > jumpColDirection && -1 < jumpRowDirection && -1 < jumpColDirection){
 		if(checkerBoardArray[jumpRowDirection][jumpColDirection] === ' '){
 			$(`.play-checker-tile[row=${jumpRowDirection}][col=${jumpColDirection}]`).addClass('highlight');
+			possibleJumps++;
 		} else {
 			return;
 		}
@@ -313,9 +317,42 @@ function jumpPiece(){
 	checkerBoardArray[destRow][destCol] = currentPiece;
 	checkerBoardArray[initialRow][initialCol] = ' ';
 	checkerBoardArray[jumpedRow][jumpedCol] = ' ';
+	if(possibleJumps > 0){
+		doubleJumpFlag = true;
+	}
+	possibleJumps = 0;
+	checkDoubleJump();
 	switchPlayer();
 	winMessage();
+	if(possibleJumps === 0){
+		doubleJumpFlag = false;
+	}
 }
+function checkDoubleJump(){
+	initialRow = destRow;
+	initialCol = destCol;
+	createMovementCalcs();
+	if(possibleJumps > 0){
+		if(currentPiece === 'r' || currentPiece === 'rk'){
+			$('#player1win').text('DOUBLE JUMP').css('color', 'green');
+		} else{
+			$('#player2win').text('DOUBLE JUMP').css('color', 'green');
+		}
+		if (blackTurn) {
+			blackTurn = false;
+			redTurn = true;			
+		} else if(redTurn){
+			redTurn = false;
+			blackTurn = true;
+		}
+	} else{
+		doubleJumpFlag = false;
+		$('#player2win').text(' ');
+		$('#player1win').text(' ');
+		return;
+	}		
+}
+
 function switchPlayer() {
 	if (blackTurn) {
 		blackTurn = false;
@@ -336,11 +373,15 @@ function switchPlayer() {
 function winMessage(){
 	if(redCounter === 12){
 		$('#player1win').text('WINNER!').css('color', '#94112B');
+		$(".player2-image").css("border-color", "white");
+		$(".player1-image").css("border-color", "green");
 		redTurn = false;
 		blackTurn = false;
 	}
 	if(blackCounter === 12){
 		$('#player2win').text('WINNER!').css('color', '#111111');
+		$(".player1-image").css("border-color", "white");
+		$(".player2-image").css("border-color", "green");
 		redTurn = false;
 		blackTurn = false;
 	}
