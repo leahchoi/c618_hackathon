@@ -1,6 +1,9 @@
 $(document).ready(runThisOnLoad);
+
+//These counters will increase when a checker is jumped
 var blackCounter = 0;
 var redCounter = 0;
+
 
 function runThisOnLoad() {
 	makeCheckersBoard();
@@ -16,6 +19,7 @@ var blackTurn = true;
 var redTurn = false;
 
 
+//Array that represents the checkerboard and is updated as user moves and where we determine if moves are valid
 var checkerBoardArray = [
 	[' ', 'r', ' ', 'r', ' ', 'r', ' ', 'r'],
 	['r', ' ', 'r', ' ', 'r', ' ', 'r', ' '],
@@ -27,47 +31,49 @@ var checkerBoardArray = [
 	['b', ' ', 'b', ' ', 'b', ' ', 'b', ' ']
 ];
 
+//Creates the checker board and adds classes to the checker pieces and adds them all to the dom
 function makeCheckersBoard() {
+	//toggles
 	var switcher = 0;
 	for (var rowI = 0; rowI < 8; rowI++) {
 		switcher = 1 - switcher;
 		for (var colI = 0; colI < 8; colI++) {
 			var gameBoard = $('.gameboard');
 			if (switcher) {
-				var divMake = $('<div>').addClass('board-square red-square').attr({
+				var divMake = $('<div>').addClass('board-square red-square').attr({ //This creates the red squares on the board
 					'row': rowI,
 					'col': colI
 				});
 				switcher = 1 - switcher;
 			} else {
 				if (checkerBoardArray[rowI][colI] === 'r') {
-					var divMake = $('<div>').addClass('board-square black-square').attr({
+					var divMake = $('<div>').addClass('board-square black-square').attr({//This creates a black square
 						'row': rowI,
 						'col': colI
 					});
-					var divMake2 = $('<div>').addClass('board-square red-checker play-checker-tile').attr({
+					var divMake2 = $('<div>').addClass('board-square red-checker play-checker-tile').attr({//This creates a red checker
 						'row': rowI,
 						'col': colI
 					});
 					divMake.append(divMake2);
 					switcher = 1 - switcher;
 				} else if (checkerBoardArray[rowI][colI] === 'b') {
-					var divMake = $('<div>').addClass('board-square black-square').attr({
+					var divMake = $('<div>').addClass('board-square black-square').attr({//This creates a black square
 						'row': rowI,
 						'col': colI
 					});
-					var divMake2 = $('<div>').addClass('board-square black-checker play-checker-tile').attr({
+					var divMake2 = $('<div>').addClass('board-square black-checker play-checker-tile').attr({//This creates a black checker
 						'row': rowI,
 						'col': colI
 					});
 					divMake.append(divMake2);
 					switcher = 1 - switcher;
 				} else {
-					var divMake = $('<div>').addClass('board-square black-square').attr({
+					var divMake = $('<div>').addClass('board-square black-square').attr({//This creates just a black square
 						'row': rowI,
 						'col': colI
 					});
-					var divMake2 = $('<div>').addClass('board-square play-checker-tile').attr({
+					var divMake2 = $('<div>').addClass('board-square play-checker-tile').attr({//This creates an empty place for future checker pieces...middle of the board
 						'row': rowI,
 						'col': colI
 					});
@@ -81,33 +87,36 @@ function makeCheckersBoard() {
 	}
 }
 
+//Routes the clicks to their specific click functions
 function clickHandler() {
-	$(".gameboard").on('click', '.black-checker', highlightBlack);
-	$(".gameboard").on('click', '.red-checker', highlightRed);
-	$(".gameboard").on("click", ".highlight", handleCheckerMove);
-	$(".gameboard").on("click", ".redking", highlightRedKing);
-	$(".gameboard").on("click", ".blackking", highlightBlackKing);
-	$(".reset-button").on("click", resetGame);
+	$(".gameboard").on('click', '.black-checker', highlightBlack);//Creates the highlight area on the board for the black checker when it is clicked
+	$(".gameboard").on('click', '.red-checker', highlightRed);//Creates the highlight area on the board for the red checker when it is clicked
+	$(".gameboard").on("click", ".highlight", handleCheckerMove);//When a highlighted possible move is clicked, run the move function
+	$(".gameboard").on("click", ".redking", highlightRedKing);//Creates the highlight area on the board for the black king checker when it is clicked
+	$(".gameboard").on("click", ".blackking", highlightBlackKing);//Creates the highlight area on the board for the red king checker when it is clicked
+	$(".reset-button").on("click", resetGame);//resets game
 }
 
+//
 function highlightBlack(){ // function for when black checker is selected
-	if (blackTurn){
+
+	if (blackTurn){//determines who's turn it is
 			$('.play-checker-tile').removeClass('highlight highlight2'); //removes previous possible movement highlights
-			initialRow = parseInt($(this).attr('row'));
-			initialCol = parseInt($(this).attr('col'));
+			initialRow = parseInt($(this).attr('row'));//this gives us the coordinates for the div that is clicked
+			initialCol = parseInt($(this).attr('col'));//this gives us the coordinates for the div that is clicked
 			$(`.play-checker-tile[row=${initialRow}][col=${initialCol}]`).addClass('highlight2'); //adds green highlight to current selected checker
-		var oneMoveRowLeft = initialRow-1;
+		var oneMoveRowLeft = initialRow-1;//this calculates for a single move
 		var oneMoveColLeft = initialCol-1;
 		var oneMoveRowRight = initialRow-1;
 		var oneMoveColRight = initialCol+1;
-		var twoMovesRowLeft = initialRow-2; //general calculations for possible movement directions
+		var twoMovesRowLeft = initialRow-2;//general calculations for possible movement directions
 		var twoMovesColLeft = initialCol-2;
-		var twoMovesRowRight = initialRow-2;
+		var twoMovesRowRight = initialRow-2;//this calculates for jump possibility
 		var twoMovesColRight = initialCol+2;
     
-		if (0 <= oneMoveRowLeft && 0 <= oneMoveColLeft) {
-			if (checkerBoardArray[oneMoveRowLeft][oneMoveColLeft] === ' ') {
-				$(`.play-checker-tile[row=${oneMoveRowLeft}][col=${oneMoveColLeft}]`).addClass('highlight');
+		if (0 <= oneMoveRowLeft && 0 <= oneMoveColLeft) {//if a move is less than zero than it is off the board, so don't move
+			if (checkerBoardArray[oneMoveRowLeft][oneMoveColLeft] === ' ') {//if the space is available
+				$(`.play-checker-tile[row=${oneMoveRowLeft}][col=${oneMoveColLeft}]`).addClass('highlight');//if so, then it highlights the area
 			} else if(checkerBoardArray[oneMoveRowLeft][oneMoveColLeft] === 'r' && 0 <= twoMovesRowLeft && 0 <= twoMovesColLeft){  //calculations for left movements
 				if(checkerBoardArray[twoMovesRowLeft][twoMovesColLeft] === ' '){	
 					$(`.play-checker-tile[row=${twoMovesRowLeft}][col=${twoMovesColLeft}]`).addClass('highlight');
