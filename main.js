@@ -1,5 +1,4 @@
 $(document).ready(runThisOnLoad);
-
 function runThisOnLoad() {
 	makeCheckersBoard();
 	clickHandler();
@@ -17,8 +16,8 @@ var possibleJumps = 0;
 var currentPiece = null;
 var oppositePiece = null;
 var oppositePieceKing = null;
-var oneMoveRowLeftDown = null;
 
+var oneMoveRowLeftDown = null;
 var oneMoveColLeftDown = null;
 var oneMoveRowRightDown = null;
 var oneMoveColRightDown = null;
@@ -108,9 +107,11 @@ function clickHandler() {
 	$(".reset-button").on("click", resetGame);
 }
 function handleRedClick(){
-	$('.play-checker-tile').removeClass('highlight highlight2');
-	initialRow = parseInt($(this).attr('row'));
-	initialCol = parseInt($(this).attr('col'));
+	if(!doubleJumpFlag){
+		$('.play-checker-tile').removeClass('highlight highlight2');
+		initialRow = parseInt($(this).attr('row'));
+		initialCol = parseInt($(this).attr('col'));
+	}
 	if(redTurn){
 		$(`.play-checker-tile[row=${initialRow}][col=${initialCol}]`).addClass('highlight2');
 		createMovementCalcs();
@@ -119,9 +120,11 @@ function handleRedClick(){
 	}
 }
 function handleBlackClick(){
-	$('.play-checker-tile').removeClass('highlight highlight2');
-	initialRow = parseInt($(this).attr('row'));
-	initialCol = parseInt($(this).attr('col'));
+	if(!doubleJumpFlag){
+		$('.play-checker-tile').removeClass('highlight highlight2');
+		initialRow = parseInt($(this).attr('row'));
+		initialCol = parseInt($(this).attr('col'));
+	}
 	if(blackTurn){
 		$(`.play-checker-tile[row=${initialRow}][col=${initialCol}]`).addClass('highlight2');
 		createMovementCalcs();
@@ -204,7 +207,7 @@ function checkDownRight(){
 	}
 }
 function checkUpLeft(){
-	debugger;
+	
 	if (8 > oneMoveRowLeftUp && 8 > oneMoveColLeftUp && -1 < oneMoveRowLeftUp && -1 < oneMoveColLeftUp){
 		if(checkerBoardArray[oneMoveRowLeftUp][oneMoveColLeftUp] === ' ' && !doubleJumpFlag){
 			$(`.play-checker-tile[row=${oneMoveRowLeftUp}][col=${oneMoveColLeftUp}]`).addClass('highlight');
@@ -322,28 +325,30 @@ function jumpPiece(){
 	}
 	possibleJumps = 0;
 	checkDoubleJump();
-	switchPlayer();
 	winMessage();
 	if(possibleJumps === 0){
+		if(currentPiece === 'r' || currentPiece === 'rk'){
+			redTurn = true;
+		} else{
+			blackTurn = true;
+		}
 		doubleJumpFlag = false;
+		switchPlayer();
 	}
 }
 function checkDoubleJump(){
 	initialRow = destRow;
 	initialCol = destCol;
+	$('.play-checker-tile').removeClass('highlight highlight2');
 	createMovementCalcs();
+	$(`.play-checker-tile[row=${initialRow}][col=${initialCol}]`).addClass('highlight2');
 	if(possibleJumps > 0){
 		if(currentPiece === 'r' || currentPiece === 'rk'){
 			$('#player1win').text('DOUBLE JUMP').css('color', 'green');
+			redTurn = false;
 		} else{
 			$('#player2win').text('DOUBLE JUMP').css('color', 'green');
-		}
-		if (blackTurn) {
 			blackTurn = false;
-			redTurn = true;			
-		} else if(redTurn){
-			redTurn = false;
-			blackTurn = true;
 		}
 	} else{
 		doubleJumpFlag = false;
