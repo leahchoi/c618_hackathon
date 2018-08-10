@@ -1,5 +1,6 @@
 $(document).ready(runThisOnLoad);
 function runThisOnLoad() {
+	makeCheckBoardArray();
 	makeCheckersBoard();
 	clickHandler();
 }
@@ -14,29 +15,13 @@ var destCol = null;
 var possibleJumps = 0;
 
 var currentPiece = null;
-var oppositePiece = null;
-var oppositePieceKing = null;
-
-var oneMoveRowLeftDown = null;
-var oneMoveColLeftDown = null;
-var oneMoveRowRightDown = null;
-var oneMoveColRightDown = null;
-var twoMovesRowLeftDown = null;
-var twoMovesColLeftDown = null;
-var twoMovesRowRightDown = null;
-var twoMovesColRightDown = null; //general calculations for possible movement directions
-var oneMoveRowLeftUp = null;
-var oneMoveColLeftUp = null;
-var oneMoveRowRightUp = null;
-var oneMoveColRightUp = null;
-var twoMovesRowLeftUp = null;
-var twoMovesColLeftUp = null;
-var twoMovesRowRightUp = null;
-var twoMovesColRight = null;
+const oppPieceObj = { 'r':{'oppositePiece': 'b', 'oppositeKing': 'bk'}, 'b':{'oppositePiece': 'r', 'oppositeKing': 'rk'}}
 
 var blackTurn = true;
 var redTurn = false;
-var checkerBoardArray = [
+var checkerBoardArray = makeCheckBoardArray();
+function makeCheckBoardArray(){
+	return checkerBoardArray = [
 	[' ', 'r', ' ', 'r', ' ', 'r', ' ', 'r'],
 	['r', ' ', 'r', ' ', 'r', ' ', 'r', ' '],
 	[' ', 'r', ' ', 'r', ' ', 'r', ' ', 'r'],
@@ -45,9 +30,9 @@ var checkerBoardArray = [
 	['b', ' ', 'b', ' ', 'b', ' ', 'b', ' '],
 	[' ', 'b', ' ', 'b', ' ', 'b', ' ', 'b'],
 	['b', ' ', 'b', ' ', 'b', ' ', 'b', ' ']
-];
+];}
 function makeCheckersBoard() {
-	var switcher = 0;
+	let switcher = 0;
 	for (var rowI = 0; rowI < 8; rowI++) {
 		switcher = 1 - switcher;
 		for (var colI = 0; colI < 8; colI++) {
@@ -114,9 +99,7 @@ function handleRedClick(){
 	}
 	if(redTurn){
 		$(`.play-checker-tile[row=${initialRow}][col=${initialCol}]`).addClass('highlight2');
-		createMovementCalcs();
-	} else{
-		return;
+		decideMovements();
 	}
 }
 function handleBlackClick(){
@@ -127,56 +110,27 @@ function handleBlackClick(){
 	}
 	if(blackTurn){
 		$(`.play-checker-tile[row=${initialRow}][col=${initialCol}]`).addClass('highlight2');
-		createMovementCalcs();
-	} else{
-		return;
+		decideMovements();
 	}
 }
-function createMovementCalcs(){
-	oneMoveRowLeftDown = initialRow+1;
-	oneMoveColLeftDown = initialCol-1;
-	oneMoveRowRightDown = initialRow+1;
-	oneMoveColRightDown = initialCol+1;
-	twoMovesRowLeftDown = initialRow+2;
-	twoMovesColLeftDown = initialCol-2;
-	twoMovesRowRightDown = initialRow+2;
-	twoMovesColRightDown = initialCol+2; //general calculations for possible movement directions
-	oneMoveRowLeftUp = initialRow-1;
-	oneMoveColLeftUp = initialCol-1;
-	oneMoveRowRightUp = initialRow-1;
-	oneMoveColRightUp = initialCol+1;
-	twoMovesRowLeftUp = initialRow-2;
-	twoMovesColLeftUp = initialCol-2;
-	twoMovesRowRightUp = initialRow-2;
-	twoMovesColRightUp = initialCol+2;
-	currentPiece = checkerBoardArray[initialRow][initialCol];
-	decideMovements();	
-}
 function decideMovements(){
+	currentPiece = checkerBoardArray[initialRow][initialCol];
 	switch(currentPiece){
 		case 'r':
-		oppositePiece = 'b';
-		oppositePieceKing = 'bk';
 		checkDownLeft();
 		checkDownRight();
 		break;
 		case 'b':
-		oppositePiece = 'r';
-		oppositePieceKing = 'rk';
 		checkUpLeft();
 		checkUpRight();
 		break;
 		case 'rk':
-		oppositePiece = 'b';
-		oppositePieceKing = 'bk';
 		checkDownLeft();
 		checkDownRight();
 		checkUpLeft();
 		checkUpRight();
 		break;
 		case 'bk':
-		oppositePiece = 'r';
-		oppositePieceKing = 'rk';
 		checkDownLeft();
 		checkDownRight();
 		checkUpLeft();
@@ -185,47 +139,54 @@ function decideMovements(){
 	}
 }
 function checkDownLeft(){
+	let oneMoveRowLeftDown = initialRow+1;
+	let oneMoveColLeftDown = initialCol-1;
+	let twoMovesRowLeftDown = initialRow+2;
+	let twoMovesColLeftDown = initialCol-2;
 	if (8 > oneMoveRowLeftDown && 8 > oneMoveColLeftDown && -1 < oneMoveRowLeftDown && -1 < oneMoveColLeftDown){
 		if(checkerBoardArray[oneMoveRowLeftDown][oneMoveColLeftDown] === ' ' && !doubleJumpFlag){
 			$(`.play-checker-tile[row=${oneMoveRowLeftDown}][col=${oneMoveColLeftDown}]`).addClass('highlight');
-		} else if(checkerBoardArray[oneMoveRowLeftDown][oneMoveColLeftDown] === oppositePiece || checkerBoardArray[oneMoveRowLeftDown][oneMoveColLeftDown] === oppositePieceKing){
+		} else if(checkerBoardArray[oneMoveRowLeftDown][oneMoveColLeftDown] === oppPieceObj[currentPiece].oppositePiece || checkerBoardArray[oneMoveRowLeftDown][oneMoveColLeftDown] === oppPieceObj[currentPiece].oppositeKing){
 			checkJump(twoMovesRowLeftDown, twoMovesColLeftDown);
-		} else {
-			return;
 		}
 	}
 }
 function checkDownRight(){
+	let oneMoveRowRightDown = initialRow+1;
+	let oneMoveColRightDown = initialCol+1;
+	let twoMovesRowRightDown = initialRow+2;
+	let twoMovesColRightDown = initialCol+2;
 	if (8 > oneMoveRowRightDown && 8 > oneMoveColRightDown && -1 < oneMoveRowRightDown && -1 < oneMoveColRightDown){
 		if(checkerBoardArray[oneMoveRowRightDown][oneMoveColRightDown] === ' ' && !doubleJumpFlag){
 			$(`.play-checker-tile[row=${oneMoveRowRightDown}][col=${oneMoveColRightDown}]`).addClass('highlight');
-		} else if(checkerBoardArray[oneMoveRowRightDown][oneMoveColRightDown] === oppositePiece || checkerBoardArray[oneMoveRowRightDown][oneMoveColRightDown] === oppositePieceKing){
+		} else if(checkerBoardArray[oneMoveRowRightDown][oneMoveColRightDown] === oppPieceObj[currentPiece].oppositePiece || checkerBoardArray[oneMoveRowRightDown][oneMoveColRightDown] === oppPieceObj[currentPiece].oppositeKing){
 			checkJump(twoMovesRowRightDown, twoMovesColRightDown);
-		} else {
-			return;
 		}
 	}
 }
 function checkUpLeft(){
-	
+	let oneMoveRowLeftUp = initialRow-1;
+	let oneMoveColLeftUp = initialCol-1;
+	let twoMovesRowLeftUp = initialRow-2;
+	let twoMovesColLeftUp = initialCol-2;
 	if (8 > oneMoveRowLeftUp && 8 > oneMoveColLeftUp && -1 < oneMoveRowLeftUp && -1 < oneMoveColLeftUp){
 		if(checkerBoardArray[oneMoveRowLeftUp][oneMoveColLeftUp] === ' ' && !doubleJumpFlag){
 			$(`.play-checker-tile[row=${oneMoveRowLeftUp}][col=${oneMoveColLeftUp}]`).addClass('highlight');
-		} else if(checkerBoardArray[oneMoveRowLeftUp][oneMoveColLeftUp] === oppositePiece || checkerBoardArray[oneMoveRowLeftUp][oneMoveColLeftUp] === oppositePieceKing){
+		} else if(checkerBoardArray[oneMoveRowLeftUp][oneMoveColLeftUp] === oppPieceObj[currentPiece].oppositePiece || checkerBoardArray[oneMoveRowLeftUp][oneMoveColLeftUp] === oppPieceObj[currentPiece].oppositeKing){
 			checkJump(twoMovesRowLeftUp, twoMovesColLeftUp);
-		} else {
-			return;
 		}
 	}
 }	
 function checkUpRight(){
+	let oneMoveRowRightUp = initialRow-1;
+	let oneMoveColRightUp = initialCol+1;
+	let twoMovesRowRightUp = initialRow-2;
+	let twoMovesColRightUp = initialCol+2;
 	if (8 > oneMoveRowRightUp && 8 > oneMoveColRightUp && -1 < oneMoveRowRightUp && -1 < oneMoveColRightUp){
 		if(checkerBoardArray[oneMoveRowRightUp][oneMoveColRightUp] === ' ' && !doubleJumpFlag){
 			$(`.play-checker-tile[row=${oneMoveRowRightUp}][col=${oneMoveColRightUp}]`).addClass('highlight');
-		} else if(checkerBoardArray[oneMoveRowRightUp][oneMoveColRightUp] === oppositePiece || checkerBoardArray[oneMoveRowRightUp][oneMoveColRightUp] === oppositePieceKing){
+		} else if(checkerBoardArray[oneMoveRowRightUp][oneMoveColRightUp] === oppPieceObj[currentPiece].oppositePiece || checkerBoardArray[oneMoveRowRightUp][oneMoveColRightUp] === oppPieceObj[currentPiece].oppositeKing){
 			checkJump(twoMovesRowRightUp, twoMovesColRightUp);
-		} else {
-			return;
 		}
 	}
 }
@@ -234,8 +195,6 @@ function checkJump(jumpRowDirection, jumpColDirection){
 		if(checkerBoardArray[jumpRowDirection][jumpColDirection] === ' '){
 			$(`.play-checker-tile[row=${jumpRowDirection}][col=${jumpColDirection}]`).addClass('highlight');
 			possibleJumps++;
-		} else {
-			return;
 		}
 	}
 }
@@ -277,8 +236,8 @@ function movePiece(){
 	switchPlayer();
 }
 function jumpPiece(){
-	var jumpedRow;
-	var jumpedCol;
+	let jumpedRow;
+	let jumpedCol;
 	if(destRow<initialRow){
 		jumpedRow = initialRow-1;
 	} else {
@@ -340,7 +299,7 @@ function checkDoubleJump(){
 	initialRow = destRow;
 	initialCol = destCol;
 	$('.play-checker-tile').removeClass('highlight highlight2');
-	createMovementCalcs();
+	decideMovements();
 	$(`.play-checker-tile[row=${initialRow}][col=${initialCol}]`).addClass('highlight2');
 	if(possibleJumps > 0){
 		if(currentPiece === 'r' || currentPiece === 'rk'){
@@ -393,16 +352,6 @@ function winMessage(){
 }
 function resetGame() {
 	$(".gameboard").empty();
-	checkerBoardArray = [
-		[' ', 'r', ' ', 'r', ' ', 'r', ' ', 'r'],
-		['r', ' ', 'r', ' ', 'r', ' ', 'r', ' '],
-		[' ', 'r', ' ', 'r', ' ', 'r', ' ', 'r'],
-		[' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-		[' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-		['b', ' ', 'b', ' ', 'b', ' ', 'b', ' '],
-		[' ', 'b', ' ', 'b', ' ', 'b', ' ', 'b'],
-		['b', ' ', 'b', ' ', 'b', ' ', 'b', ' ']
-	];
 	blackTurn = true;
 	redTurn = false;
 	blackCounter = 0;
@@ -413,5 +362,6 @@ function resetGame() {
 	$("#player1score").text(redCounter);
 	$('#player2win').text(' ');
 	$('#player1win').text(' ');
+	checkerBoardArray = makeCheckBoardArray();
 	makeCheckersBoard();
 }
