@@ -433,7 +433,6 @@ function removeOpponentPiece() {
 			// if the checker moves to the left side
 		} else if (destCol - initialCol < 0) {
 			//left up	
-			debugger;
 			if (destRow - initialRow < 0) {
 				$(`.play-checker-tile[row=${initialRow-1}][col=${initialCol-1}]`).removeClass(classesToRemove);
 				checkerBoardArray[(initialRow - 1)][(initialCol - 1)] = ' ';
