@@ -515,6 +515,10 @@ function resetGame() {
 	initialCol = null;
 	destRow = null;
 	destCol = null;
+	blackCounter = 0;
+	redCounter = 0;
+	$("#player1score").text(redCounter);
+	$("#player2score").text(blackCounter);
 	checkerBoardArray = [
 		[' ', 'r', ' ', 'r', ' ', 'r', ' ', 'r'],
 		['r', ' ', 'r', ' ', 'r', ' ', 'r', ' '],
