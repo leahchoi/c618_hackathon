@@ -347,14 +347,14 @@ function switchPlayer() {
 	if (blackTurn) {
 		blackTurn = false;
 		redTurn = true;
-		$(".player2-image").css("border-color", "red");
-		$(".player1-image").css("border-color", "green");
+		$(".player2-text").css("color", "red");
+		$(".player1-text").css("color", "green");
 		$('.play-checker-tile').removeClass('highlight highlight2');
 	} else if(redTurn){
 		redTurn = false;
 		blackTurn = true;
-		$(".player1-image").css("border-color", "red");
-		$(".player2-image").css("border-color", "green");
+		$(".player1-text").css("color", "red");
+		$(".player2-text").css("color", "green");
 		$('.play-checker-tile').removeClass('highlight highlight2');
 	}
 }

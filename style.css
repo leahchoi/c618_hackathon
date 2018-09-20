@@ -12,7 +12,7 @@
 	width: 100vw;
 }
 
-.header{
+.header {
 	width: 100%;
 	height: 20%;
 	display: flex;
@@ -20,7 +20,7 @@
 	background-image: url("images/woodbackground.jpeg");
 }
 
-.header-cont{
+.header-cont {
 	height: 100%;
 	width: 90%;
 	display: flex;
@@ -28,7 +28,7 @@
 	align-items: center;
 }
 
-.title-left-cont{
+.title-left-cont {
 	height: 80%;
 	width: 30%;
 	display: flex;
@@ -36,43 +36,37 @@
 	align-items: flex-start;
 }
 
-.logo{
+.logo {
 	width: 15%;
 	text-align: center;
 }
 
-.logo img{
+.logo img {
 	width: 70%;
 	margin-top: 5%;
 }
 
-.title-right-cont{
-	height: 80%;
-	width: 34%;
-	display: flex;
-	align-items: flex-end;
-}
 
-.title-text{
+.title-text {
 	font-family: 'Alegreya Sans SC', sans-serif;
-	font-size: 10vh;
+	font-size: 12vh;
 	color: #37474F;
 	text-align: center;
 }
 
-.z-color{
+.z-color {
 	color: #29B6F6;
 	font-size: 10vh;
 }
 
-.player-cont{
+.player-cont {
 	position: relative;
 	height: 100%;
 	width: 20%;
 	display: inline-block;
 }
 
-.player-image-cont{
+.player-image-cont {
 	width: 100%;
 	height: 35%;
 	display: flex;
@@ -80,8 +74,8 @@
 	align-items: center;
 }
 
-.player1-image{
-	background-image: url(images/andy.jpg);
+/* .player1-image {
+	background-image: url(images/whitePiece.png);
 	background-repeat: no-repeat;
 	background-size: 100%;
 	width: 80%;
@@ -90,7 +84,7 @@
 	border-radius: 50%;
 }
 
-.player2-image{
+.player2-image {
 	background-image: url(images/cody.jpg);
 	background-repeat: no-repeat;
 	background-size: 100%;
@@ -98,19 +92,19 @@
 	width: 80%;
 	height: 90%;
 	border-radius: 50%;
-}
+} */
 
-.player-title-cont{
+.player-title-cont {
 	width: 100%;
 	height: 10%;
 }
 
-.player-score-cont{
+.player-score-cont {
 	width: 100%;
 	height: 10%;
 }
 
-.player-stats-text{
+.player-stats-text {
 	font-family: 'Alegreya Sans SC', sans-serif;
 	font-size: 4vh;
 	color: white;
@@ -118,21 +112,32 @@
 	margin-top: 4%;
 }
 
-#player1score, #player2score{
+.player2-text {
+	color: green;
+}
+
+.player1-text{
+	color: red;
+}
+
+#player1score,
+#player2score {
 	font-size: 4vh;
 	color: white;
 }
 
-.win-cont{
+.win-cont {
 	width: 100%;
 	height: 10%;
 }
 
-#player1win, #player2win{
+#player1win,
+#player2win {
 	font-size: 5vh;
-	color:  #4DB6AC;
+	color: #4DB6AC;
 }
-.button-cont{
+
+.button-cont {
 	position: relative;
 	width: 100%;
 	height: 10%;
@@ -142,7 +147,7 @@
 	align-items: center;
 }
 
-.reset-button{
+.reset-button {
 	height: 75%;
 	width: 50%;
 	background-color: #4DB6AC;
@@ -172,8 +177,9 @@
 }
 
 .red-square {
-	background-color: #4DB6AC;
+	background-color: #E5D0BA;
 }
+
 .black-square {
 	background-color: #424242;
 }
@@ -186,28 +192,35 @@
 	left: 10%;
 	top: 10%;
 }
-.red-checker{
-	background-image: url(images/andy.jpg);
-	background-size: 100%;
-	border: 3px solid white;
+
+.red-checker {
+	background-image: url(images/whitePiece.png);
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-position: center;
 }
 
-.redking{
-	background-image: url(images/danking.png);
-	background-size: 100%;
-	border: 3px solid white;
-}
-.black-checker{
-	background-image: url(images/cody.jpg);
-	background-size: 100%;
-	border: 3px solid white;
+.redking {
+	background-image: url(images/whitePieceKing.png);
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-position: center;
 }
 
-.blackking{
-	background-image: url(images/collette.png);
-	background-size: 100%;
-	border: 3px solid white;
+.black-checker {
+	background-image: url(images/blackPiece.png);
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-position: center;
 }
+
+.blackking {
+	background-image: url(images/blackPieceKing.png);
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-position: center;
+}
+
 .highlight {
 	border: solid 2px #4DB6AC;
 }
@@ -223,4 +236,3 @@
 .highlight2 {
 	border: 3px solid green;
 }
-
