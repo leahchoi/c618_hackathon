@@ -1,6 +1,6 @@
 # Checkers
 
-##Requirements: 
+Requirements: 
 
 - Rules:
   - at least 2 players
@@ -10,7 +10,7 @@
   - 'kinged pieces' can move forward & backwards
   - Multi-jump 
 
-##Technologies:
+Technologies:
 
 - Javascript
 - HTML
